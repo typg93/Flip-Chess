@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 7589204512852201403}
   - component: {fileID: 2483609199621690314}
   - component: {fileID: 7305854657059416051}
+  - component: {fileID: 1127485498572753508}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Piece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,6 +76,28 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1127485498572753508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385963032760457069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2654cde849cae0f41aec84a127766d67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  redOne: {fileID: 21300000, guid: 5abb383295c9c7049947d28edec1e71a, type: 3}
+  redTwo: {fileID: 21300000, guid: 26fa5a411a2cb604da6ee474791955de, type: 3}
+  redThree: {fileID: 21300000, guid: 3d6764b380e1ce542a95668571dea585, type: 3}
+  redFour: {fileID: 21300000, guid: a885b13f5d6f9324cb3dce2268e08065, type: 3}
+  redKing: {fileID: 21300000, guid: 5ed8915360f98d648a67ce0e91822897, type: 3}
+  blueOne: {fileID: 21300000, guid: 2d004404f4c095a47a93aafcf687f086, type: 3}
+  blueTwo: {fileID: 21300000, guid: d1793ffabf41f974098470a414cc067f, type: 3}
+  blueThree: {fileID: 21300000, guid: f36e60fdb5631454aa5b84bd92b52c20, type: 3}
+  blueFour: {fileID: 21300000, guid: 0c398bbcdf651944fac6e84e540d9539, type: 3}
+  blueKing: {fileID: 21300000, guid: 74674fc6bc30b6a45aa25efafddb754f, type: 3}
 --- !u!1 &6560506995844314736
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,3 +187,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fbd6a8e48f3e248be01c7afd7d3fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  value: 0

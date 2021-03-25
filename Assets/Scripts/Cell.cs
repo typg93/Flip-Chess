@@ -8,10 +8,18 @@ using UnityEngine.EventSystems;
 
 public class Cell : MonoBehaviour, IPointerClickHandler
 {
-
+    
     private int value;
+
+    //The children piece logic attached to this gameobject.
     private Piece piece;
-    public event EventHandler OnChangeValue;
+
+    //Event for changing image in piece
+    public event EventHandler<OnChangeValueEventArgs> OnChangeValue;
+    public class OnChangeValueEventArgs : EventArgs
+    {
+        public int value;
+    }
 
     private void Awake()
     {
@@ -26,6 +34,7 @@ public class Cell : MonoBehaviour, IPointerClickHandler
     public void ChangeValue(int value)
     {
         this.value = value;
-        OnChangeValue?.Invoke(this, EventArgs.Empty);
+        OnChangeValue?.Invoke(this, new OnChangeValueEventArgs { value = value });
     }
+    
 }

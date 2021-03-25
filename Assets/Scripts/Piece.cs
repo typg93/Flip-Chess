@@ -2,13 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
-public class Piece : MonoBehaviour
+using UnityEngine.EventSystems;
+public class Piece : MonoBehaviour, IPointerClickHandler
 {
-    public int value;
+    private int value = 0;
+    private bool visible;
     private Image pieceSprite;
+
     public Sprite redOne, redTwo, redThree, redFour, redKing;
     public Sprite blueOne, blueTwo, blueThree, blueFour, blueKing;
+    
 
     private void Awake()
     {
@@ -19,51 +22,55 @@ public class Piece : MonoBehaviour
     {
 
     }
+    
 
-    // Update is called once per frame
-    void Update()
+    public void ChangeVisibility(bool val)
     {
-        
+        if (val == true)
+        {
+            //To do
+        }
+        else
+        {
+
+        }
     }
 
     public void ChangeValue(int val)
     {
+        value = val;
         switch (val)
         {
             case 0:
                 //transparent piece to be implemented later
-                break;
+                pieceSprite.enabled = false; break;
             case 1:
-                pieceSprite.sprite = redOne;
-                break;
+                pieceSprite.sprite = redOne; break;                
             case 2:
-                pieceSprite.sprite = redTwo;
-                break;
+                pieceSprite.sprite = redTwo; break;                
             case 3:
-                pieceSprite.sprite = redThree;
-                break;
+                pieceSprite.sprite = redThree; break;                
             case 4:
-                pieceSprite.sprite = redFour;
-                break;
+                pieceSprite.sprite = redFour; break;
             case 5:
-                pieceSprite.sprite = redKing;
-                break;
+                pieceSprite.sprite = redKing; break;
+                
 
             case -1:
-                pieceSprite.sprite = blueOne;
-                break;
+                pieceSprite.sprite = blueOne; break;
             case -2:
-                pieceSprite.sprite = blueTwo;
-                break;
+                pieceSprite.sprite = blueTwo; break;
             case -3:
-                pieceSprite.sprite = blueThree;
-                break;
+                pieceSprite.sprite = blueThree; break;
             case -4:
-                pieceSprite.sprite = blueFour;
-                break;
+                pieceSprite.sprite = blueFour; break;
             case -5:
-                pieceSprite.sprite = blueKing;
-                break;
+                pieceSprite.sprite = blueKing; break;                
         }
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Debug.Log("piece cliked");
     }
 }

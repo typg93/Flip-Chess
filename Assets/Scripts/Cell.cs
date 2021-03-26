@@ -10,8 +10,9 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 {
     
     private int value;
+    private bool faceUp;
 
-    //The children piece logic attached to this gameobject.
+    //The children piece script attached to this gameobject.
     private Piece piece;
 
     //Event for changing image in piece
@@ -20,6 +21,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public class OnChangeValueEventArgs : EventArgs
     {
         public int value;
+        public bool faceUp;
     }
     #endregion
 
@@ -29,24 +31,36 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
 
 
-    public void ChangeValue(int value)
+    public void ChangeValue(int value, bool faceUp)
     {
         this.value = value;
-        OnChangeValue?.Invoke(this, new OnChangeValueEventArgs { value = value });
+        this.faceUp = faceUp;
+        OnChangeValueEventArgs args = new OnChangeValueEventArgs();
+        args.value = value;
+        args.faceUp = faceUp;
+        OnChangeValue?.Invoke(this, args);
+    }
+
+
+    public int GetValue()
+    {
+        return value;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        throw new NotImplementedException();
+        Cell endPiece = eventData.pointerEnter.GetComponent<Cell>();
+        Debug.Log("onenddrag" + value + " " + eventData.pointerEnter.GetComponent<Cell>().GetValue());
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        throw new NotImplementedException();
+        Cell endCell = eventData.pointerClick.GetComponent<Cell>();
     }
 
     public void OnDrag(PointerEventData eventData)
     {
-        throw new NotImplementedException();
+        Debug.Log("ondrag");
+
     }
 }

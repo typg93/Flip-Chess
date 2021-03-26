@@ -64,7 +64,7 @@ public class Board : MonoBehaviour
                 GameObject newCell = Instantiate(CellPrefab, transform);
 
                 //Generate pieces
-                newCell.GetComponent<Cell>().ChangeValue(allGamePiecesandEmpty[pieceIndex]);
+                newCell.GetComponent<Cell>().ChangeValue(allGamePiecesandEmpty[pieceIndex], true);
                 pieceIndex++;
 
                 // Position

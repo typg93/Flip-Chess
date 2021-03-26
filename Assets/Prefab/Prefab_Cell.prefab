@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -88,6 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2654cde849cae0f41aec84a127766d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  faceDown: {fileID: 21300000, guid: e6bfea3e16497bb4d8759eb80e257e29, type: 3}
   redOne: {fileID: 21300000, guid: 5abb383295c9c7049947d28edec1e71a, type: 3}
   redTwo: {fileID: 21300000, guid: 26fa5a411a2cb604da6ee474791955de, type: 3}
   redThree: {fileID: 21300000, guid: 3d6764b380e1ce542a95668571dea585, type: 3}
@@ -187,4 +188,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8fbd6a8e48f3e248be01c7afd7d3fe8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  value: 0

@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
-public class Cell : MonoBehaviour, IPointerClickHandler
+public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
     
     private int value;
@@ -15,26 +15,38 @@ public class Cell : MonoBehaviour, IPointerClickHandler
     private Piece piece;
 
     //Event for changing image in piece
+    #region Events
     public event EventHandler<OnChangeValueEventArgs> OnChangeValue;
     public class OnChangeValueEventArgs : EventArgs
     {
         public int value;
     }
+    #endregion
 
     private void Awake()
     {
         piece = transform.GetComponentInChildren<Piece>();
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("Cell clicked");
-    }
 
     public void ChangeValue(int value)
     {
         this.value = value;
         OnChangeValue?.Invoke(this, new OnChangeValueEventArgs { value = value });
     }
-    
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        throw new NotImplementedException();
+    }
 }

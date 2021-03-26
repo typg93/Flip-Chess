@@ -6,7 +6,6 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class Piece : MonoBehaviour, IPointerClickHandler
 {
-    private int value = 0;
     private bool visible;
     private Image pieceSprite;
     private Cell cell;
@@ -21,7 +20,7 @@ public class Piece : MonoBehaviour, IPointerClickHandler
         cell = GetComponentInParent<Cell>();
     }
 
-    #region Events
+    #region Subscribing Events
     private void OnEnable()
     {
         cell.OnChangeValue += Cell_OnChangeValue;
@@ -78,38 +77,6 @@ public class Piece : MonoBehaviour, IPointerClickHandler
                 pieceSprite.sprite = blueFour; break;
             case -5:
                 pieceSprite.sprite = blueKing; break;
-        }
-    }
-    public void ChangeValue(int val)
-    {
-        value = val;
-        switch (val)
-        {
-            case 0:
-                //transparent piece to be implemented later
-                pieceSprite.enabled = false; break;
-            case 1:
-                pieceSprite.sprite = redOne; break;                
-            case 2:
-                pieceSprite.sprite = redTwo; break;                
-            case 3:
-                pieceSprite.sprite = redThree; break;                
-            case 4:
-                pieceSprite.sprite = redFour; break;
-            case 5:
-                pieceSprite.sprite = redKing; break;
-                
-
-            case -1:
-                pieceSprite.sprite = blueOne; break;
-            case -2:
-                pieceSprite.sprite = blueTwo; break;
-            case -3:
-                pieceSprite.sprite = blueThree; break;
-            case -4:
-                pieceSprite.sprite = blueFour; break;
-            case -5:
-                pieceSprite.sprite = blueKing; break;                
         }
     }
 

@@ -83,6 +83,7 @@ public class Board : MonoBehaviour
         #endregion
     }
 
+    //to do change util class
     static void ShuffleArray(int[] array)
         //Shuffles an array using Fischer-Yale algorithm. O(n) time complexity.
     {
@@ -96,4 +97,8 @@ public class Board : MonoBehaviour
         }
     }
 
+    public void RandomizePieces()
+    {
+
+    }
 }

@@ -25,6 +25,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         public int value;
         public bool faceUp;
     }
+    public event EventHandler OnDragPiece;
     #endregion
 
     private void Awake()
@@ -56,12 +57,24 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         return value;
     }
 
+    private bool ValidMove(Cell start, Cell end)
+    {
+        if (start == end)
+        {
+            return false;
+        }
+        
+        return true;
+    }
+
     public void OnEndDrag(PointerEventData eventData)
     {
         endDragPiece = eventData.pointerEnter.GetComponent<Cell>();
-        endDragPiece.ChangeValue(value, true);
-        ChangeValue(0, true);
-        //Debug.Log("onenddrag" + value + " " + eventData.pointerEnter.GetComponent<Cell>().GetValue());
+        if (ValidMove(endDragPiece, this)){
+            endDragPiece.ChangeValue(value, true);
+            ChangeValue(0, true);
+        }
+        
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -71,7 +84,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-
+        OnDragPiece?.Invoke(this, EventArgs.Empty);
     }
 
     public void OnPointerClick(PointerEventData eventData)

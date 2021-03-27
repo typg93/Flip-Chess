@@ -71,11 +71,9 @@ public class Board : MonoBehaviour
                 RectTransform cellTransform = newCell.GetComponent<RectTransform>();
                 cellTransform.anchoredPosition = new Vector2((x * cellWidth) + cellWidth/2, (y * cellHeight) + cellHeight/2);
 
-                // Setup
+                // Setup and color
                 cells[x, y] = newCell;
                 cells[x, y].GetComponent<Image>().color = gridPaint? gridColorOdd : gridColorEven;
-                
-
                 gridPaint = !gridPaint;
             }
             gridPaint = !gridPaint;
@@ -105,7 +103,7 @@ public class Board : MonoBehaviour
         }
     }
 
-    //to do change util class
+    //to do move to util class
     static void ShuffleArray(int[] array)
         //Shuffles an array using Fischer-Yale algorithm. O(n) time complexity.
     {

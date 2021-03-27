@@ -25,6 +25,7 @@ public class Piece : MonoBehaviour
     private void OnEnable()
     {
         cell.OnChangeValue += Cell_OnChangeValue;
+        //cell.OnDragPiece += Cell_OnDrag;
     }
 
     private void OnDisable()
@@ -38,17 +39,7 @@ public class Piece : MonoBehaviour
     }
     #endregion
 
-    public void ChangeVisibility(bool val)
-    {
-        if (val == true)
-        {
-            //To do
-        }
-        else
-        {
 
-        }
-    }
     private void Cell_OnChangeValue(object sender, Cell.OnChangeValueEventArgs e)
     {
         //first check if piece is to be flipped up or down
@@ -93,8 +84,10 @@ public class Piece : MonoBehaviour
     }
 
     private void Cell_OnDrag(object sender, EventArgs e)
+        //not working
     {
-
+        pieceSprite.transform.position = (Vector2)Input.mousePosition;
+        
     }
 
     

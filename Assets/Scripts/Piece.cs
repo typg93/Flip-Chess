@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-public class Piece : MonoBehaviour, IPointerClickHandler
+public class Piece : MonoBehaviour
 {
     private bool visible;
     private Image pieceSprite;
@@ -59,6 +59,8 @@ public class Piece : MonoBehaviour, IPointerClickHandler
 
         else
         {
+            if (e.value != 0) pieceSprite.enabled = true;
+
             switch (e.value)
             {
                 case 0:
@@ -90,8 +92,10 @@ public class Piece : MonoBehaviour, IPointerClickHandler
         
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    private void Cell_OnDrag(object sender, EventArgs e)
     {
-        Debug.Log("piece cliked");
+
     }
+
+    
 }

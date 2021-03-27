@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
-public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
+public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
     
     private int value;
@@ -14,6 +14,8 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     //The children piece script attached to this gameobject.
     private Piece piece;
+
+    private Cell endDragPiece;
 
     //Event for changing image in piece
     #region Events
@@ -32,6 +34,8 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
 
     public void ChangeValue(int value, bool faceUp)
+        //value = value of the piece
+        //faceUp = whether the piece is turned up or down
     {
         this.value = value;
         this.faceUp = faceUp;
@@ -39,6 +43,11 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         args.value = value;
         args.faceUp = faceUp;
         OnChangeValue?.Invoke(this, args);
+    }
+
+    public void ChangeValue(bool faceUp)
+    {
+        ChangeValue(value, faceUp);
     }
 
 
@@ -49,8 +58,10 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        Cell endPiece = eventData.pointerEnter.GetComponent<Cell>();
-        Debug.Log("onenddrag" + value + " " + eventData.pointerEnter.GetComponent<Cell>().GetValue());
+        endDragPiece = eventData.pointerEnter.GetComponent<Cell>();
+        endDragPiece.ChangeValue(value, true);
+        ChangeValue(0, true);
+        //Debug.Log("onenddrag" + value + " " + eventData.pointerEnter.GetComponent<Cell>().GetValue());
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -60,7 +71,11 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("ondrag");
 
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (faceUp == false) ChangeValue(true);
     }
 }

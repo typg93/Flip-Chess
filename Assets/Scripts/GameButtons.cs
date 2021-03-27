@@ -15,12 +15,7 @@ public class GameButtons : Button
 
     public void ResetBoard()
     {
-        foreach (GameObject cellGM in board.cells)
-        {
-            Cell cell = cellGM.GetComponent<Cell>();
-            cell.ChangeValue(0, true);
-        }
-
-        // to do
+        board.ClearBoard();
+        board.RandomizeCellValues();
     }
 }

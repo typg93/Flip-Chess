@@ -34,11 +34,12 @@ public class Board : MonoBehaviour
 
     void Start()
     {
-        ShufflePieces();
         GenerateCells();
+        RandomizeCellValues();
     }
 
     private void ShufflePieces()
+        //adds empty slots (value = 0) onto the shufflearray array
     {
         allGamePiecesandEmpty = new int[boardX * boardY];
         for (int i = 0; i < allGamePieces.Length; i++)
@@ -49,13 +50,13 @@ public class Board : MonoBehaviour
     }
 
     public void GenerateCells()
+        //initializes cell transform, base color, and sets all cell value to 0
     {
         #region GenerateCells
         cellWidth = CellPrefab.GetComponent<RectTransform>().rect.width;
         cellHeight = CellPrefab.GetComponent<RectTransform>().rect.height;
         cells = new GameObject[boardX, boardY];
         pieces = new GameObject[boardX, boardY];
-        int pieceIndex = 0;
         for (int y = 0; y < boardY; y++)
         {
             for (int x = 0; x < boardX; x++)
@@ -63,15 +64,14 @@ public class Board : MonoBehaviour
                 // Create the cell
                 GameObject newCell = Instantiate(CellPrefab, transform);
 
-                //Generate pieces
-                newCell.GetComponent<Cell>().ChangeValue(allGamePiecesandEmpty[pieceIndex], true);
-                pieceIndex++;
+                //initializing pieces
+                newCell.GetComponent<Cell>().ChangeValue(0, true);
 
                 // Position
                 RectTransform cellTransform = newCell.GetComponent<RectTransform>();
                 cellTransform.anchoredPosition = new Vector2((x * cellWidth) + cellWidth/2, (y * cellHeight) + cellHeight/2);
+
                 // Setup
-                
                 cells[x, y] = newCell;
                 cells[x, y].GetComponent<Image>().color = gridPaint? gridColorOdd : gridColorEven;
                 
@@ -81,6 +81,28 @@ public class Board : MonoBehaviour
             gridPaint = !gridPaint;
         }
         #endregion
+    }
+
+    public void RandomizeCellValues()
+    {
+        ShufflePieces();
+        int pieceIndex = 0;
+        foreach(GameObject cellGM in cells)
+        {
+            Cell cell = cellGM.GetComponent<Cell>();
+            cell.ChangeValue(allGamePiecesandEmpty[pieceIndex], true);
+            pieceIndex++;
+        }
+        
+    }
+
+    public void ClearBoard()
+    {
+        foreach(GameObject cellGM in cells)
+        {
+            Cell cell = cellGM.GetComponent<Cell>();
+            cell.ChangeValue(0, true);
+        }
     }
 
     //to do change util class

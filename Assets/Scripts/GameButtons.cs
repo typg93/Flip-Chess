@@ -6,6 +6,9 @@ public class GameButtons : Button
 {
     public void FlipAllPiecesUp()
     {
+        //test
+        
+        Debug.Log(GameManager.instance.value);
         foreach (GameObject cellGM in board.cells)
         {
             Cell cell = cellGM.GetComponent<Cell>();

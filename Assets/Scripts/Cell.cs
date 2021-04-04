@@ -16,6 +16,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     private Piece piece;
     private GameObject pieceGO;
     private Vector3 pieceOldPosition;
+    private Canvas pieceCanvas;
 
     private Cell endDragPiece;
 
@@ -25,13 +26,13 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         piece = transform.GetComponentInChildren<Piece>();
         pieceGO = piece.gameObject;
+        pieceCanvas = pieceGO.GetComponent<Canvas>();
         
     }
 
     private void Start()
     {
         pieceOldPosition = pieceGO.transform.position;
-        Debug.Log(pieceOldPosition.x + " " + pieceOldPosition.y);
     }
 
 
@@ -59,7 +60,6 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         if (start == end)
         {
-            Debug.Log("same piece");
             return false;
         }
         
@@ -74,18 +74,19 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             endDragPiece.ChangeValue(value, true);
             ChangeValue(0, true);
         }
-        else ResetPiece();
+        ResetPiece();
     }
 
     private void ResetPiece()
         //puts the sprite back in place
     {
         pieceGO.transform.position = pieceOldPosition;
+        pieceCanvas.sortingOrder = 10;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Cell endCell = eventData.pointerClick.GetComponent<Cell>();
+        pieceCanvas.sortingOrder = 11;
     }
 
     public void OnDrag(PointerEventData eventData)

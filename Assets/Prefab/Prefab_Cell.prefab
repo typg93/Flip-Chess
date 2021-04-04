@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 2483609199621690314}
   - component: {fileID: 7305854657059416051}
   - component: {fileID: 1127485498572753508}
-  m_Layer: 0
+  - component: {fileID: 7294989717921053446}
+  m_Layer: 6
   m_Name: Piece
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,6 +100,27 @@ MonoBehaviour:
   blueThree: {fileID: 21300000, guid: f36e60fdb5631454aa5b84bd92b52c20, type: 3}
   blueFour: {fileID: 21300000, guid: 0c398bbcdf651944fac6e84e540d9539, type: 3}
   blueKing: {fileID: 21300000, guid: 74674fc6bc30b6a45aa25efafddb754f, type: 3}
+--- !u!223 &7294989717921053446
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1385963032760457069}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 1
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 10
+  m_TargetDisplay: 0
 --- !u!1 &6560506995844314736
 GameObject:
   m_ObjectHideFlags: 0

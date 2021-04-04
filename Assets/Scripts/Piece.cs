@@ -21,38 +21,21 @@ public class Piece : MonoBehaviour
         cell = GetComponentInParent<Cell>();
     }
 
-    #region Subscribing Events
-    private void OnEnable()
-    {
-        cell.OnChangeValue += Cell_OnChangeValue;
-        //cell.OnDragPiece += Cell_OnDrag;
-    }
-
-    private void OnDisable()
-    {
-        cell.OnChangeValue -= Cell_OnChangeValue;
-    }
-
-    private void OnDestroy()
-    {
-        cell.OnChangeValue -= Cell_OnChangeValue;
-    }
-    #endregion
 
 
-    private void Cell_OnChangeValue(object sender, Cell.OnChangeValueEventArgs e)
+
+    public void ChangeSprite(int value, bool faceUp)
     {
-        //first check if piece is to be flipped up or down
-        if (e.faceUp == false)
+        if (faceUp == false)
         {
             pieceSprite.sprite = faceDown;
         }
 
         else
         {
-            if (e.value != 0) pieceSprite.enabled = true;
+            if (value != 0) pieceSprite.enabled = true;
 
-            switch (e.value)
+            switch (value)
             {
                 case 0:
                     pieceSprite.enabled = false; break;
@@ -78,16 +61,18 @@ public class Piece : MonoBehaviour
                     pieceSprite.sprite = blueFour; break;
                 case -5:
                     pieceSprite.sprite = blueKing; break;
+                default:
+                    Debug.Log("piece sprite out of bounds"); break;
+
             }
         }
-        
     }
 
-    private void Cell_OnDrag(object sender, EventArgs e)
+
+private void Cell_OnDrag(object sender, EventArgs e)
         //not working
     {
         pieceSprite.transform.position = (Vector2)Input.mousePosition;
-        
     }
 
     

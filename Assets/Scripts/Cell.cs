@@ -14,23 +14,24 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     //The children piece script attached to this gameobject.
     private Piece piece;
+    private GameObject pieceGO;
+    private Vector3 pieceOldPosition;
 
     private Cell endDragPiece;
 
-    //Event for changing image in piece
-    #region Events
-    public event EventHandler<OnChangeValueEventArgs> OnChangeValue;
-    public class OnChangeValueEventArgs : EventArgs
-    {
-        public int value;
-        public bool faceUp;
-    }
-    public event EventHandler OnDragPiece;
-    #endregion
+    
 
     private void Awake()
     {
         piece = transform.GetComponentInChildren<Piece>();
+        pieceGO = piece.gameObject;
+        
+    }
+
+    private void Start()
+    {
+        pieceOldPosition = pieceGO.transform.position;
+        Debug.Log(pieceOldPosition.x + " " + pieceOldPosition.y);
     }
 
 
@@ -40,10 +41,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         this.value = value;
         this.faceUp = faceUp;
-        OnChangeValueEventArgs args = new OnChangeValueEventArgs();
-        args.value = value;
-        args.faceUp = faceUp;
-        OnChangeValue?.Invoke(this, args);
+        piece.ChangeSprite(value, faceUp);
     }
 
     public void ChangeValue(bool faceUp)
@@ -61,6 +59,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         if (start == end)
         {
+            Debug.Log("same piece");
             return false;
         }
         
@@ -70,11 +69,18 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public void OnEndDrag(PointerEventData eventData)
     {
         endDragPiece = eventData.pointerEnter.GetComponent<Cell>();
-        if (ValidMove(endDragPiece, this)){
+        if (ValidMove(endDragPiece, this))
+        {
             endDragPiece.ChangeValue(value, true);
             ChangeValue(0, true);
         }
-        
+        else ResetPiece();
+    }
+
+    private void ResetPiece()
+        //puts the sprite back in place
+    {
+        pieceGO.transform.position = pieceOldPosition;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -84,7 +90,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-        OnDragPiece?.Invoke(this, EventArgs.Empty);
+        pieceGO.transform.position = Input.mousePosition;
     }
 
     public void OnPointerClick(PointerEventData eventData)

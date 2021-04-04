@@ -62,6 +62,10 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         {
             return false;
         }
+        else if (!faceUp)
+        {
+            return false;
+        }
         
         return true;
     }
@@ -69,6 +73,11 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public void OnEndDrag(PointerEventData eventData)
     {
         endDragPiece = eventData.pointerEnter.GetComponent<Cell>();
+        MoveTo(endDragPiece);
+    }
+
+    private void MoveTo(Cell endDragPiece)
+    {
         if (ValidMove(endDragPiece, this))
         {
             endDragPiece.ChangeValue(value, true);
@@ -78,7 +87,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
 
     private void ResetPiece()
-        //puts the sprite back in place
+        //puts the piece sprite back in place
     {
         pieceGO.transform.position = pieceOldPosition;
         pieceCanvas.sortingOrder = 10;
@@ -91,11 +100,12 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-        pieceGO.transform.position = Input.mousePosition;
+        if (faceUp) pieceGO.transform.position = Input.mousePosition;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (faceUp == false) ChangeValue(true);
+        if (!faceUp) ChangeValue(true);
+        GameManager.instance.EndTurn();
     }
 }

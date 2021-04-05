@@ -10,6 +10,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 {
     private Vector2 cellCoordinate;
     private int value;
+    private Player valueColor;
     private bool faceUp;
 
     //The children piece script attached to this gameobject.
@@ -25,7 +26,6 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         piece = transform.GetComponentInChildren<Piece>();
         pieceGO = piece.gameObject;
         pieceCanvas = pieceGO.GetComponent<Canvas>();
-        
     }
 
     private void Start()
@@ -51,13 +51,26 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         ChangeValue(value, faceUp);
     }
 
-
     public int GetValue()
     {
         return value;
     }
 
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        pieceCanvas.sortingOrder = 11;
+    }
 
+    public void OnDrag(PointerEventData eventData)
+    {
+        if (faceUp) pieceGO.transform.position = Input.mousePosition;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (!faceUp) ChangeValue(true);
+        GameManager.instance.EndTurn();
+    }
 
     public void OnEndDrag(PointerEventData eventData)
     {
@@ -76,11 +89,13 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         {
             endDragPiece.ChangeValue(value, true);
             ChangeValue(0, true);
+            GameManager.instance.EndTurn();
         }
         ResetPiece();
     }
 
     private bool ValidMove(Cell start, Cell end)
+        //check if destination cell is within 1 square
     {
 
         if (start == end)
@@ -93,7 +108,35 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             return false;
         }
 
-        return true;
+        else if (GameManager.instance.PlayerTurn() == Player.Red && start.value < 0)
+        {
+            return false;
+        }
+
+        else if(GameManager.instance.PlayerTurn() == Player.Blue && start.value > 0)
+        {
+            return false;
+        }
+
+        else if (start.cellCoordinate.x == end.cellCoordinate.x)
+        {
+            if (Math.Abs(start.cellCoordinate.y - end.cellCoordinate.y) == 1)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        else if (start.cellCoordinate.y == end.cellCoordinate.y)
+        {
+            if (Math.Abs(start.cellCoordinate.x - end.cellCoordinate.x) == 1)
+            {
+                return true;
+            }
+            else return false;
+        }
+
+        else return false;
     }
 
     private void ResetPiece()
@@ -103,19 +146,5 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         pieceCanvas.sortingOrder = 10;
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        pieceCanvas.sortingOrder = 11;
-    }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        if (faceUp) pieceGO.transform.position = Input.mousePosition;
-    }
-
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        if (!faceUp) ChangeValue(true);
-        GameManager.instance.EndTurn();
-    }
 }

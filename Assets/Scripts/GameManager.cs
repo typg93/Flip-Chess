@@ -5,11 +5,26 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
 
-    public int value = 5;
-    private bool turn = true; //red is true
+    public Player turn = Player.Red;
 
+    private void Start()
+    {
+        turn = Player.Red; // red goes first
+    }
     public void EndTurn()
     {
-        turn = !turn;
+        if (turn == Player.Red) turn = Player.Blue;
+        else if (turn == Player.Blue) turn = Player.Red;
     }
+
+    public Player PlayerTurn()
+    {
+        return turn;
+    }
+}
+
+public enum Player
+{
+    Red = 1,
+    Blue = -1
 }

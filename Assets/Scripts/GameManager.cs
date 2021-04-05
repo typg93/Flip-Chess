@@ -26,5 +26,6 @@ public class GameManager : Singleton<GameManager>
 public enum Player
 {
     Red = 1,
+    Empty = 0,
     Blue = -1
 }

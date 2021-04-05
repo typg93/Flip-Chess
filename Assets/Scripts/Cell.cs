@@ -21,6 +21,11 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     private Cell endDragPiece;
 
+    public Cell(int value, Player valueColor, bool faceUp, Vector2 cellCoordinate)
+    {
+        (this.value, this.valueColor, this.faceUp, this.cellCoordinate) = (value, valueColor, faceUp, cellCoordinate);
+    }
+
     private void Awake()
     {
         piece = transform.GetComponentInChildren<Piece>();
@@ -37,18 +42,17 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         cellCoordinate = coordinate;
     }
-    public void ChangeValue(int value, bool faceUp)
+    public void ChangeValue(int value, Player valueColor, bool faceUp)
         //value = value of the piece
         //faceUp = whether the piece is turned up or down
     {
-        this.value = value;
-        this.faceUp = faceUp;
-        piece.ChangeSprite(value, faceUp);
+        (this.value, this.valueColor, this.faceUp) = (value, valueColor, faceUp);
+        piece.ChangeSprite(value, valueColor, faceUp);
     }
 
     public void ChangeValue(bool faceUp)
     {
-        ChangeValue(value, faceUp);
+        ChangeValue(value, valueColor, faceUp);
     }
 
     public int GetValue()
@@ -87,8 +91,8 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         if (ValidMove(this, endDragPiece))
         {
-            endDragPiece.ChangeValue(value, true);
-            ChangeValue(0, true);
+            endDragPiece.ChangeValue(value, valueColor, true);
+            ChangeValue(0, Player.Empty, true);
             GameManager.instance.EndTurn();
         }
         ResetPiece();
@@ -108,12 +112,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             return false;
         }
 
-        else if (GameManager.instance.PlayerTurn() == Player.Red && start.value < 0)
-        {
-            return false;
-        }
-
-        else if(GameManager.instance.PlayerTurn() == Player.Blue && start.value > 0)
+        else if (GameManager.instance.PlayerTurn() != valueColor)
         {
             return false;
         }

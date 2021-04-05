@@ -22,9 +22,7 @@ public class Piece : MonoBehaviour
     }
 
 
-
-
-    public void ChangeSprite(int value, bool faceUp)
+    public void ChangeSprite(int value, Player player, bool faceUp)
     {
         if (faceUp == false)
         {
@@ -34,45 +32,44 @@ public class Piece : MonoBehaviour
         else
         {
             if (value != 0) pieceSprite.enabled = true;
+            else if (value == 0) pieceSprite.enabled = false;
 
-            switch (value)
-            {
-                case 0:
-                    pieceSprite.enabled = false; break;
-                case 1:
-                    pieceSprite.sprite = redOne; break;
-                case 2:
-                    pieceSprite.sprite = redTwo; break;
-                case 3:
-                    pieceSprite.sprite = redThree; break;
-                case 4:
-                    pieceSprite.sprite = redFour; break;
-                case 5:
-                    pieceSprite.sprite = redKing; break;
-
-
-                case -1:
-                    pieceSprite.sprite = blueOne; break;
-                case -2:
-                    pieceSprite.sprite = blueTwo; break;
-                case -3:
-                    pieceSprite.sprite = blueThree; break;
-                case -4:
-                    pieceSprite.sprite = blueFour; break;
-                case -5:
-                    pieceSprite.sprite = blueKing; break;
-                default:
-                    Debug.Log("piece sprite out of bounds"); break;
-
+            if (player == Player.Red) {
+                switch (value)
+                {
+                    case 1:
+                        pieceSprite.sprite = redOne; break;
+                    case 2:
+                        pieceSprite.sprite = redTwo; break;
+                    case 3:
+                        pieceSprite.sprite = redThree; break;
+                    case 4:
+                        pieceSprite.sprite = redFour; break;
+                    case 5:
+                        pieceSprite.sprite = redKing; break;
+                    default:
+                        Debug.Log("piece sprite out of bounds"); break;
+                }
+            }
+            else if (player == Player.Blue) {
+                switch (value)
+                {
+                    case 1:
+                        pieceSprite.sprite = blueOne; break;
+                    case 2:
+                        pieceSprite.sprite = blueTwo; break;
+                    case 3:
+                        pieceSprite.sprite = blueThree; break;
+                    case 4:
+                        pieceSprite.sprite = blueFour; break;
+                    case 5:
+                        pieceSprite.sprite = blueKing; break;
+                    default:
+                        Debug.Log("piece sprite out of bounds"); break;
+                }
+            
             }
         }
-    }
-
-
-private void Cell_OnDrag(object sender, EventArgs e)
-        //not working
-    {
-        pieceSprite.transform.position = (Vector2)Input.mousePosition;
     }
 
     

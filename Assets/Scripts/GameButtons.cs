@@ -11,6 +11,7 @@ public class GameButtons : Button
         foreach (GameObject cellGM in board.cells)
         {
             Cell cell = cellGM.GetComponent<Cell>();
+            if(cell.)
             cell.ChangeValue(false);
         }
     }

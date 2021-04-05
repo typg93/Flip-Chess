@@ -66,7 +66,7 @@ public class Board : MonoBehaviour
 
                 //initializing pieces
                 Cell newCell = newCellGM.GetComponent<Cell>();
-                newCell.ChangeValue(0, Player.Empty, true);//todo change logic for valueColor
+                newCell.ChangeValue(0, Player.Empty, true);
                 newCellGM.GetComponent<Cell>().SetCoordinate(new Vector2(x, y));
 
                 // Position

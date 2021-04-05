@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 
 public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
-    
+    private Vector2 cellCoordinate;
     private int value;
     private bool faceUp;
 
@@ -19,8 +19,6 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     private Canvas pieceCanvas;
 
     private Cell endDragPiece;
-
-    
 
     private void Awake()
     {
@@ -35,7 +33,10 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         pieceOldPosition = pieceGO.transform.position;
     }
 
-
+    public void SetCoordinate(Vector2 coordinate)
+    {
+        cellCoordinate = coordinate;
+    }
     public void ChangeValue(int value, bool faceUp)
         //value = value of the piece
         //faceUp = whether the piece is turned up or down
@@ -56,34 +57,43 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         return value;
     }
 
-    private bool ValidMove(Cell start, Cell end)
-    {
-        if (start == end)
-        {
-            return false;
-        }
-        else if (!faceUp)
-        {
-            return false;
-        }
-        
-        return true;
-    }
+
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        endDragPiece = eventData.pointerEnter.GetComponent<Cell>();
-        MoveTo(endDragPiece);
+        if (eventData.pointerEnter != null &&
+            eventData.pointerEnter.CompareTag("Cell"))
+        {
+            endDragPiece = eventData.pointerEnter.GetComponent<Cell>();
+            MoveTo(endDragPiece);
+        }
+        else ResetPiece();
     }
 
     private void MoveTo(Cell endDragPiece)
     {
-        if (ValidMove(endDragPiece, this))
+        if (ValidMove(this, endDragPiece))
         {
             endDragPiece.ChangeValue(value, true);
             ChangeValue(0, true);
         }
         ResetPiece();
+    }
+
+    private bool ValidMove(Cell start, Cell end)
+    {
+
+        if (start == end)
+        {
+            return false;
+        }
+
+        else if (!faceUp)
+        {
+            return false;
+        }
+
+        return true;
     }
 
     private void ResetPiece()

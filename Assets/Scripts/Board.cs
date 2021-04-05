@@ -62,17 +62,19 @@ public class Board : MonoBehaviour
             for (int x = 0; x < boardX; x++)
             {
                 // Create the cell
-                GameObject newCell = Instantiate(CellPrefab, transform);
+                GameObject newCellGM = Instantiate(CellPrefab, transform);
 
                 //initializing pieces
-                newCell.GetComponent<Cell>().ChangeValue(0, true);
+                Cell newCell = newCellGM.GetComponent<Cell>();
+                newCell.ChangeValue(0, true);
+                newCellGM.GetComponent<Cell>().SetCoordinate(new Vector2(x, y));
 
                 // Position
-                RectTransform cellTransform = newCell.GetComponent<RectTransform>();
+                RectTransform cellTransform = newCellGM.GetComponent<RectTransform>();
                 cellTransform.anchoredPosition = new Vector2((x * cellWidth) + cellWidth/2, (y * cellHeight) + cellHeight/2);
 
                 // Setup and color
-                cells[x, y] = newCell;
+                cells[x, y] = newCellGM;
                 cells[x, y].GetComponent<Image>().color = gridPaint? gridColorOdd : gridColorEven;
                 gridPaint = !gridPaint;
             }

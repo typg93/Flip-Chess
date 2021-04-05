@@ -109,25 +109,21 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
         if (start == end)
         {
-            Debug.Log("start == end");
             return false;
         }
 
         else if (!start.faceUp || !end.faceUp)
         {
-            Debug.Log("cannot move into face down piece");
             return false;
         }
 
         else if (start.valueColor == end.valueColor)
         {
-            Debug.Log("same start and end color");
             return false;
         }
 
         else if (GameManager.instance.PlayerTurn() != valueColor)
         {
-            Debug.Log("not equal valueColor to turn");
             return false;
         }
 
@@ -149,10 +145,8 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             else return false;
         }
 
-
         else
         {
-            Debug.Log("all else passed");
             return false;
         }
                 

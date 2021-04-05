@@ -6,13 +6,14 @@ public class GameButtons : Button
 {
     public void FlipAllPiecesUp()
     {
-        //test
         
         foreach (GameObject cellGM in board.cells)
         {
             Cell cell = cellGM.GetComponent<Cell>();
-            if(cell.)
-            cell.ChangeValue(false);
+            if (cell.GetValue() != 0)
+            {
+                cell.ChangeValue(false);
+            }
         }
     }
 

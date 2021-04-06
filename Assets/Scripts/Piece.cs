@@ -22,7 +22,7 @@ public class Piece : MonoBehaviour
     }
 
 
-    public void ChangeSprite(int value, Player player, bool faceUp)
+    public void ChangeSprite(CellValue cellValue, Player player, bool faceUp)
     {
         if (faceUp == false)
         {
@@ -31,38 +31,38 @@ public class Piece : MonoBehaviour
 
         else
         {
-            if (value != 0) pieceSprite.enabled = true;
-            else if (value == 0) pieceSprite.enabled = false;
+            if (cellValue != CellValue.Empty) pieceSprite.enabled = true;
+            else if (cellValue == CellValue.Empty) pieceSprite.enabled = false;
 
             if (player == Player.Red) {
-                switch (value)
+                switch (cellValue)
                 {
-                    case 1:
+                    case CellValue.One:
                         pieceSprite.sprite = redOne; break;
-                    case 2:
+                    case CellValue.Two:
                         pieceSprite.sprite = redTwo; break;
-                    case 3:
+                    case CellValue.Three:
                         pieceSprite.sprite = redThree; break;
-                    case 4:
+                    case CellValue.Four:
                         pieceSprite.sprite = redFour; break;
-                    case 5:
+                    case CellValue.King:
                         pieceSprite.sprite = redKing; break;
                     default:
                         Debug.Log("piece sprite out of bounds"); break;
                 }
             }
             else if (player == Player.Blue) {
-                switch (value)
+                switch (cellValue)
                 {
-                    case 1:
+                    case CellValue.One:
                         pieceSprite.sprite = blueOne; break;
-                    case 2:
+                    case CellValue.Two:
                         pieceSprite.sprite = blueTwo; break;
-                    case 3:
+                    case CellValue.Three:
                         pieceSprite.sprite = blueThree; break;
-                    case 4:
+                    case CellValue.Four:
                         pieceSprite.sprite = blueFour; break;
-                    case 5:
+                    case CellValue.King:
                         pieceSprite.sprite = blueKing; break;
                     default:
                         Debug.Log("piece sprite out of bounds"); break;

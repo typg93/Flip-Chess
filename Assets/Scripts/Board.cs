@@ -66,7 +66,7 @@ public class Board : MonoBehaviour
 
                 //initializing pieces
                 Cell newCell = newCellGM.GetComponent<Cell>();
-                newCell.ChangeValue(0, Player.Empty, true);
+                newCell.ChangeValue(CellValue.Empty, Player.Empty, true);
                 newCellGM.GetComponent<Cell>().SetCoordinate(new Vector2(x, y));
 
                 // Position
@@ -91,7 +91,7 @@ public class Board : MonoBehaviour
         {
             Cell cell = cellGM.GetComponent<Cell>();
             Player valueColor = (Player)Math.Sign(allGamePiecesandEmpty[pieceIndex]);
-            cell.ChangeValue(Math.Abs(allGamePiecesandEmpty[pieceIndex]), valueColor, true);
+            cell.ChangeValue((CellValue)Math.Abs(allGamePiecesandEmpty[pieceIndex]), valueColor, true);
             pieceIndex++;
         }
         
@@ -102,7 +102,7 @@ public class Board : MonoBehaviour
         foreach(GameObject cellGM in cells)
         {
             Cell cell = cellGM.GetComponent<Cell>();
-            cell.ChangeValue(0, Player.Empty, true);
+            cell.ChangeValue(CellValue.Empty, Player.Empty, true);
         }
     }
 

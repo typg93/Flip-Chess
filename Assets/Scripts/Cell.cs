@@ -9,8 +9,7 @@ using UnityEngine.EventSystems;
 public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
     private Vector2 cellCoordinate;
-    private int value;
-    private Player valueColor;
+    private Player cellColor;
     private bool faceUp;
 
     //The children piece script attached to this gameobject.
@@ -18,13 +17,10 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     private GameObject pieceGO;
     private Vector3 pieceOldPosition;
     private Canvas pieceCanvas;
+    private CellValue cellValue;
 
     private Cell endDragPiece;
 
-    public Cell(int value, Player valueColor, bool faceUp, Vector2 cellCoordinate)
-    {
-        (this.value, this.valueColor, this.faceUp, this.cellCoordinate) = (value, valueColor, faceUp, cellCoordinate);
-    }
 
     private void Awake()
     {
@@ -47,22 +43,22 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         return faceUp;
     }
-    public void ChangeValue(int value, Player valueColor, bool faceUp)
+    public void ChangeValue(CellValue cellValue, Player cellColor, bool faceUp)
         //value = value of the piece
         //faceUp = whether the piece is turned up or down
     {
-        (this.value, this.valueColor, this.faceUp) = (value, valueColor, faceUp);
-        piece.ChangeSprite(value, valueColor, faceUp);
+        (this.cellValue, this.cellColor, this.faceUp) = (cellValue, cellColor, faceUp);
+        piece.ChangeSprite(cellValue, cellColor, faceUp);
     }
 
     public void ChangeValue(bool faceUp)
     {
-        ChangeValue(value, valueColor, faceUp);
+        ChangeValue(cellValue, cellColor, faceUp);
     }
 
-    public int GetValue()
+    public CellValue GetValue()
     {
-        return value;
+        return cellValue;
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -89,18 +85,58 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             endDragPiece = eventData.pointerEnter.GetComponent<Cell>();
             MoveTo(endDragPiece);
         }
-        else ResetPiece();
+        else
+        {
+            Debug.Log("OnEnddrag failed");
+            ResetPiece();
+        }
+            
     }
 
-    private void MoveTo(Cell endDragPiece)
+    private void MoveTo(Cell target)
     {
-        if (ValidMove(this, endDragPiece))
+        if (ValidMove(this, target))
         {
-            endDragPiece.ChangeValue(value, valueColor, true);
-            ChangeValue(0, Player.Empty, true);
+            Debug.Log("move to is a valid move");
+            ResolveMove(target);
             GameManager.instance.EndTurn();
         }
         ResetPiece();
+    }
+
+    private void ResolveMove(Cell target)
+    {
+        if (this.cellValue == target.cellValue)
+        {
+            ChangeValue(CellValue.Empty, Player.Empty, true);
+            target.ChangeValue(CellValue.Empty, Player.Empty, true);
+        }
+
+        else if (cellValue == CellValue.King)
+        {
+            target.ChangeValue(cellValue, cellColor, true);
+            ChangeValue(CellValue.Empty, Player.Empty, true);
+        }
+
+        else if (target.cellValue == CellValue.King)
+        {
+            target.ChangeValue(cellValue, cellColor, true);
+            ChangeValue(CellValue.Empty, Player.Empty, true);
+            //win Game
+            GameManager.instance.WinGame(GameManager.instance.PlayerTurn());
+        }
+
+        else if ((int)this.cellValue > (int)target.cellValue)
+        {
+            target.ChangeValue(cellValue, cellColor, true);
+            ChangeValue(CellValue.Empty, Player.Empty, true);
+        }
+
+        else if ((int)this.cellValue < (int)target.cellValue)
+        {
+            ChangeValue(CellValue.Empty, Player.Empty, true);
+        }
+
     }
 
     private bool ValidMove(Cell start, Cell end)
@@ -109,21 +145,25 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
         if (start == end)
         {
+            Debug.Log("start=end");
             return false;
         }
 
         else if (!start.faceUp || !end.faceUp)
         {
+            Debug.Log("faceup");
             return false;
         }
 
-        else if (start.valueColor == end.valueColor)
+        else if (start.cellColor == end.cellColor)
         {
+            Debug.Log("same color");
             return false;
         }
 
-        else if (GameManager.instance.PlayerTurn() != valueColor)
+        else if (GameManager.instance.PlayerTurn() != cellColor)
         {
+            Debug.Log("not same turn");
             return false;
         }
 
@@ -133,6 +173,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             {
                 return true;
             }
+
             else return false;
         }
 
@@ -147,6 +188,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
         else
         {
+            Debug.Log("all passed");
             return false;
         }
                 
@@ -160,4 +202,12 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
 
 
+}
+public enum CellValue{
+    Empty = 0,
+    One = 1,
+    Two = 2,
+    Three = 3,
+    Four = 4,
+    King = 5
 }

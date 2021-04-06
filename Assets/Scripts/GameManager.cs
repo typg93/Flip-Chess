@@ -30,6 +30,12 @@ public class GameManager : Singleton<GameManager>
     {
         return turn;
     }
+
+    public void WinGame(Player player)
+    {
+        //win game
+        Debug.Log(player + "wins");
+    }
 }
 
 public enum Player

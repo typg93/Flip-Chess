@@ -10,7 +10,7 @@ public class GameButtons : Button
         foreach (GameObject cellGM in board.cells)
         {
             Cell cell = cellGM.GetComponent<Cell>();
-            if (cell.GetValue() != 0)
+            if (cell.GetValue() != CellValue.Empty)
             {
                 cell.ChangeValue(false);
             }

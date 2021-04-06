@@ -31,7 +31,6 @@ public class Board : MonoBehaviour
     private float cellWidth;
     private float cellHeight;
 
-
     void Start()
     {
         GenerateCells();

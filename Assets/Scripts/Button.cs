@@ -10,5 +10,4 @@ public abstract class Button : MonoBehaviour
     {
         board = FindObjectOfType<Board>();
     }
-
 }

@@ -6,9 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 public class Piece : MonoBehaviour
 {
-    private bool visible;
     private Image pieceSprite;
-    private Cell cell;
 
     public Sprite faceDown;
     public Sprite redOne, redTwo, redThree, redFour, redKing;
@@ -18,9 +16,7 @@ public class Piece : MonoBehaviour
     private void Awake()
     {
         pieceSprite = GetComponent<Image>();
-        cell = GetComponentInParent<Cell>();
     }
-
 
     public void ChangeSprite(CellValue cellValue, Player player, bool faceUp)
     {

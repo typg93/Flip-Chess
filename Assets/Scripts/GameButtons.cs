@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameButtons : Button
 {
@@ -21,5 +22,14 @@ public class GameButtons : Button
     {
         board.ClearBoard();
         board.RandomizeCellValues();
+    }
+
+    public void ResetBoardTen()
+    {
+        for(int i = 0; i< 5; i++)
+        {
+            Invoke("ResetBoard", i*0.1f);
+        }
+        Invoke("FlipAllPiecesUp", 1.1f);
     }
 }

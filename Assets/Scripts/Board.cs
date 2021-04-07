@@ -8,10 +8,11 @@ using UnityEngine.EventSystems;
 
 public class Board : MonoBehaviour
 {
-    public GameObject CellPrefab;
+    [SerializeField]
+    private GameObject CellPrefab;
+    [SerializeField]
     public GameObject PiecePrefab;
     public GameObject[,] cells;
-    public GameObject[,] pieces;
     public int boardX = 8;
     public int boardY = 5;
 
@@ -33,7 +34,7 @@ public class Board : MonoBehaviour
 
     void Start()
     {
-        GenerateCells();
+        InitializeBoard();
         RandomizeCellValues();
     }
 
@@ -48,14 +49,13 @@ public class Board : MonoBehaviour
         ShuffleArray(allGamePiecesandEmpty);
     }
 
-    public void GenerateCells()
+    public void InitializeBoard()
         //initializes cell transform, base color, and sets all cell value to 0
     {
         #region GenerateCells
         cellWidth = CellPrefab.GetComponent<RectTransform>().rect.width;
         cellHeight = CellPrefab.GetComponent<RectTransform>().rect.height;
         cells = new GameObject[boardX, boardY];
-        pieces = new GameObject[boardX, boardY];
         for (int y = 0; y < boardY; y++)
         {
             for (int x = 0; x < boardX; x++)
@@ -93,7 +93,6 @@ public class Board : MonoBehaviour
             cell.ChangeValue((CellValue)Math.Abs(allGamePiecesandEmpty[pieceIndex]), valueColor, true);
             pieceIndex++;
         }
-        
     }
 
     public void ClearBoard()

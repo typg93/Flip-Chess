@@ -8,7 +8,7 @@ public class AIPlayer : MonoBehaviour
 
     public Board board;
 
-    //boardValue keeps the piece
+    //bitboard to store board position
     private UInt64 RedOnes;
     private UInt64 RedTwos;
     private UInt64 RedThrees;
@@ -19,17 +19,15 @@ public class AIPlayer : MonoBehaviour
     private UInt64 BlueThrees;
     private UInt64 BlueFours;
     private UInt64 BlueKing;
+    private UInt64 FaceUp;
 
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     void ScanBoard()
     {
-        
+        foreach(Cell cell in board.cells)
+        {
+
+        }
     }
 
     void LogBoardValue()

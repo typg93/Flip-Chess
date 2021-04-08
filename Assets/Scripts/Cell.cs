@@ -70,8 +70,11 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!faceUp) ChangeValue(true);
-        GameManager.instance.EndTurn();
+        if (!faceUp)
+        {
+            ChangeValue(true);
+            GameManager.instance.EndTurn();
+        }
     }
 
     public void OnEndDrag(PointerEventData eventData)

@@ -8,7 +8,7 @@ public class GameButtons : Button
     public void FlipAllPiecesUp()
     {
         
-        foreach (GameObject cellGM in board.cells)
+        foreach (GameObject cellGM in board.cellsGO)
         {
             Cell cell = cellGM.GetComponent<Cell>();
             if (cell.GetValue() != CellValue.Empty)

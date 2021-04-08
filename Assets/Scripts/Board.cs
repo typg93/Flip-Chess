@@ -12,7 +12,7 @@ public class Board : MonoBehaviour
     private GameObject CellPrefab;
     [SerializeField]
     public GameObject PiecePrefab;
-    public GameObject[,] cells;
+    public GameObject[,] cellsGO;
     public int boardX = 8;
     public int boardY = 5;
 
@@ -55,7 +55,7 @@ public class Board : MonoBehaviour
         #region GenerateCells
         cellWidth = CellPrefab.GetComponent<RectTransform>().rect.width;
         cellHeight = CellPrefab.GetComponent<RectTransform>().rect.height;
-        cells = new GameObject[boardX, boardY];
+        cellsGO = new GameObject[boardX, boardY];
         for (int y = 0; y < boardY; y++)
         {
             for (int x = 0; x < boardX; x++)
@@ -73,8 +73,8 @@ public class Board : MonoBehaviour
                 cellTransform.anchoredPosition = new Vector2((x * cellWidth) + cellWidth/2, (y * cellHeight) + cellHeight/2);
 
                 // Setup and color
-                cells[x, y] = newCellGM;
-                cells[x, y].GetComponent<Image>().color = gridPaint? gridColorOdd : gridColorEven;
+                cellsGO[x, y] = newCellGM;
+                cellsGO[x, y].GetComponent<Image>().color = gridPaint? gridColorOdd : gridColorEven;
                 gridPaint = !gridPaint;
             }
             gridPaint = !gridPaint;
@@ -86,7 +86,7 @@ public class Board : MonoBehaviour
     {
         ShufflePieces();
         int pieceIndex = 0;
-        foreach(GameObject cellGM in cells)
+        foreach(GameObject cellGM in cellsGO)
         {
             Cell cell = cellGM.GetComponent<Cell>();
             Player valueColor = (Player)Math.Sign(allGamePiecesandEmpty[pieceIndex]);
@@ -97,7 +97,7 @@ public class Board : MonoBehaviour
 
     public void ClearBoard()
     {
-        foreach(GameObject cellGM in cells)
+        foreach(GameObject cellGM in cellsGO)
         {
             Cell cell = cellGM.GetComponent<Cell>();
             cell.ChangeValue(CellValue.Empty, Player.Empty, true);

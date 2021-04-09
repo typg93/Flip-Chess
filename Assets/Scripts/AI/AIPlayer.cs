@@ -30,6 +30,20 @@ public class AIPlayer : MonoBehaviour
         }
     }
 
+    int PieceCount(UInt64 bitboard)
+    //counts the number of 1 bits in a bitboard
+    {
+        int count = 0;
+
+        while (bitboard != 0)
+        {
+            bitboard &= (bitboard - 1);
+            count++;
+        }
+
+        return count;
+    }
+
     void LogBoardValue()
     {
 

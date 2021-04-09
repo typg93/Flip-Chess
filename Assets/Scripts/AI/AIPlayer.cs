@@ -8,8 +8,16 @@ public class AIPlayer : MonoBehaviour
 
     public Board board;
 
-    // uses bitboard data structure to store board position.
-    // true in flattened array represents piece at location
+    // ----BitBoard variables----
+    // - uses bitboard data structure to store board position
+    // - flattens data in Cell Class into uint32 in series of 1's and 0's
+    // - left bottom corner will be index 0
+    // - used with bitwise operations
+    // - board position to bitboard uint32 digit index:
+    //| 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 |
+    //| 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23 |
+    //| 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 |
+    //| 00 | 01 | 02 | 03 | 04 | 05 | 06 | 07 |
     private uint RedOnes;
     private uint RedTwos;
     private uint RedThrees;
@@ -28,10 +36,9 @@ public class AIPlayer : MonoBehaviour
         foreach(Cell cell in board.cells)
         {
             int cellValue = (int)cell.GetValue();
-            int cellPos = (int)cell.GetCoordinate().x * 4 +
-                (int)cell.GetCoordinate().y;
+            int cellPos = (int)cell.GetCoordinate().x +
+                (int)cell.GetCoordinate().y * board.boardX;
                 
-            Debug.Log("Cell val is " + cellValue + " and position is " + cellPos);
             if (cellValue == 1)
             {
                 RedOnes |= SetBitBoard(cellPos);

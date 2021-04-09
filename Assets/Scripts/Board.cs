@@ -12,8 +12,8 @@ public class Board : MonoBehaviour
     private GameObject CellPrefab;
     [SerializeField]
     private GameObject PiecePrefab;
-    [SerializeField]
-    private int boardX = 8, boardY = 4;
+
+    public int boardX = 8, boardY = 4;
 
     public GameObject[,] cellsGO;
     public Cell[,] cells;

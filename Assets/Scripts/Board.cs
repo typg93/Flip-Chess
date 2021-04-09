@@ -12,13 +12,12 @@ public class Board : MonoBehaviour
     private GameObject CellPrefab;
     [SerializeField]
     private GameObject PiecePrefab;
+    [SerializeField]
+    private int boardX = 8, boardY = 4;
 
     public GameObject[,] cellsGO;
     public Cell[,] cells;
-    [SerializeField]
-    private int boardX = 8, boardY = 5;
-    
-    
+
 
     private static readonly System.Random _random = new System.Random();
     public int[] allGamePieces;

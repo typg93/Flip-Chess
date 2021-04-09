@@ -32,6 +32,11 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         pieceOldPosition = pieceGO.transform.position;
     }
 
+    #region Set/Get
+    public Vector2 GetCoordinate()
+    {
+        return cellCoordinate;
+    }
     public void SetCoordinate(Vector2 coordinate)
     {
         cellCoordinate = coordinate;
@@ -45,6 +50,9 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         return cellValue;
     }
+    #endregion
+
+    #region Change Value
     public void ChangeValue(CellValue cellValue, Player cellColor, bool faceUp)
         //value = value of the piece
         //faceUp = whether the piece is turned up or down
@@ -57,7 +65,9 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         ChangeValue(cellValue, cellColor, faceUp);
     }
+    #endregion
 
+    #region User Input
     public void OnBeginDrag(PointerEventData eventData)
     {
         pieceCanvas.sortingOrder = 11;
@@ -76,7 +86,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             GameManager.instance.EndTurn();
         }
     }
-
+    
     public void OnEndDrag(PointerEventData eventData)
     {
         if (eventData.pointerEnter != null &&
@@ -92,6 +102,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         }
             
     }
+    #endregion
 
     #region Move Logic
     public void MoveTo(Cell target)

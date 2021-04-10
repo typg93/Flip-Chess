@@ -25,8 +25,9 @@ public class AIPlayer : MonoBehaviour
             bool flipState = cell.GetFlipState();
             int cellValue = (int)cell.GetValue();
             int cellPos = (int)cell.GetCoordinate().x + (int)cell.GetCoordinate().y * boardX;
+            bitBoard.Clear();
 
-            if(flipState == true)
+            if(flipState == true && cellColor != Player.Empty)
             {
                 bitBoard.FaceUps |= SetOneAtIndex(cellPos);
             }
@@ -91,6 +92,16 @@ public class AIPlayer : MonoBehaviour
             count++;
         }
         return count;
+    }
+
+    List<uint> GenerateIndex(uint bitBoard)
+    {
+
+    }
+
+    List<uint> GenerateMoves(uint bitBoards)
+    {
+
     }
 
     void PrintBoardValue(uint bitBoard)

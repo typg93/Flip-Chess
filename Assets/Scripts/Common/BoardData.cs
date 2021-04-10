@@ -25,6 +25,20 @@ public struct BitBoard
     public uint BlueFours;
     public uint BlueKing;
     public uint FaceUps;
+
+    public uint BluePieces, RedPieces, AllPieces;
+
+    public void Clear()
+    {
+        RedOnes = RedTwos = RedThrees = RedFours = RedKing = BlueOnes = BlueTwos = BlueThrees = BlueFours = BlueKing = 0;
+    }
+
+    public void Update()
+    {
+        BluePieces = BlueOnes | BlueTwos | BlueThrees | BlueFours | BlueKing;
+        RedPieces = RedOnes | RedTwos | RedThrees | RedFours | RedKing;
+        AllPieces = BluePieces | RedPieces;
+    }
 }
 
 public enum Player

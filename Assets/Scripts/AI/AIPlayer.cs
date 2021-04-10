@@ -24,8 +24,12 @@ public class AIPlayer : MonoBehaviour
             Player cellColor = cell.GetColor();
             bool flipState = cell.GetFlipState();
             int cellValue = (int)cell.GetValue();
-            int cellPos = (int)cell.GetCoordinate().x +
-                (int)cell.GetCoordinate().y * boardX;
+            int cellPos = (int)cell.GetCoordinate().x + (int)cell.GetCoordinate().y * boardX;
+
+            if(flipState == true)
+            {
+                bitBoard.FaceUps |= SetOneAtIndex(cellPos);
+            }
 
             if (cellColor == Player.Red)
             {
@@ -65,7 +69,7 @@ public class AIPlayer : MonoBehaviour
                 }
             }
         }
-//        PrintBoardValue(bitBoard.RedOnes);
+        PrintBoardValue(bitBoard.FaceUps);
     }
 
     uint SetOneAtIndex(int i)

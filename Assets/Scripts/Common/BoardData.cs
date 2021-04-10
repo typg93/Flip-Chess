@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 // ----BitBoard variables----
-// - uses bitboard data structure to store board position
+// - uses bitboard data structure to store board position for AI search
 // - flattens data in Cell Class into uint32 to represent pieces locations in binary
 // - board position to bitboard uint32 digit index:
 //| 24 | 25 | 26 | 27 | 28 | 29 | 30 | 31 |
@@ -24,5 +24,22 @@ public struct BitBoard
     public uint BlueThrees;
     public uint BlueFours;
     public uint BlueKing;
-    public uint FaceUp;
+    public uint FaceUps;
+}
+
+public enum Player
+{
+    Red = 1,
+    Empty = 0,
+    Blue = -1
+}
+
+public enum CellValue
+{
+    Empty = 0,
+    One = 1,
+    Two = 2,
+    Three = 3,
+    Four = 4,
+    King = 5
 }

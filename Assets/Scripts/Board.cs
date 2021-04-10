@@ -14,26 +14,15 @@ public class Board : MonoBehaviour
     private GameObject PiecePrefab;
 
     public int boardX = 8, boardY = 4;
-
     public GameObject[,] cellsGO;
     public Cell[,] cells;
 
-
-    private static readonly System.Random _random = new System.Random();
     public int[] allGamePieces;
     private int[] allGamePiecesandEmpty;
-    public Board(int boardX, int boardY)
-    {
-        this.boardX = boardX;
-        this.boardY = boardY;
-    }
 
     public Color32 gridColorOdd = new Color32(10, 10, 10, 255);
     public Color32 gridColorEven = new Color32(230, 220, 187, 255);
     private Boolean gridPaint = true;
-
-    private float cellWidth;
-    private float cellHeight;
 
     void Start()
     {
@@ -56,8 +45,8 @@ public class Board : MonoBehaviour
         //initializes cell transform, base color, and sets all cell value to 0
     {
         #region GenerateCells
-        cellWidth = CellPrefab.GetComponent<RectTransform>().rect.width;
-        cellHeight = CellPrefab.GetComponent<RectTransform>().rect.height;
+        float cellWidth = CellPrefab.GetComponent<RectTransform>().rect.width;
+        float cellHeight = CellPrefab.GetComponent<RectTransform>().rect.height;
         cellsGO = new GameObject[boardX, boardY];
         cells = new Cell[boardX, boardY];
 
@@ -114,6 +103,7 @@ public class Board : MonoBehaviour
         //Shuffles an array using Fischer-Yale algorithm. O(n) time complexity.
     {
         int n = array.Length;
+        System.Random _random = new System.Random();
         for (int i = 0; i < n; i++)
         {
             int r = i + (int)(_random.NextDouble() * (n - i));

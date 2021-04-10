@@ -11,8 +11,8 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     //cell Data
     private Vector2 cellCoordinate;
     private Player cellColor;
-    private bool faceUp;
-    private CellValue cellValue;
+    private bool flipState;
+    private CellValue cellValue;    
 
     //The children piece script attached to this gameobject.
     private Piece piece;
@@ -42,13 +42,18 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         cellCoordinate = coordinate;
     }
 
-    public bool GetFace()
+    public bool GetFlipState()
     {
-        return faceUp;
+        return flipState;
     }
     public CellValue GetValue()
     {
         return cellValue;
+    }
+
+    public Player GetColor()
+    {
+        return cellColor;
     }
     #endregion
 
@@ -57,7 +62,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
         //value = value of the piece
         //faceUp = whether the piece is turned up or down
     {
-        (this.cellValue, this.cellColor, this.faceUp) = (cellValue, cellColor, faceUp);
+        (this.cellValue, this.cellColor, this.flipState) = (cellValue, cellColor, faceUp);
         piece.ChangeSprite(cellValue, cellColor, faceUp);
     }
 
@@ -75,12 +80,12 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (faceUp) pieceGO.transform.position = Input.mousePosition;
+        if (flipState) pieceGO.transform.position = Input.mousePosition;
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!faceUp)
+        if (!flipState)
         {
             ChangeValue(true);
             GameManager.instance.EndTurn();
@@ -160,7 +165,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
             return false;
         }
 
-        else if (!start.faceUp || !end.faceUp)
+        else if (!start.flipState || !end.flipState)
         {
             Debug.Log("faceup");
             return false;
@@ -214,11 +219,4 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     #endregion
 
 }
-public enum CellValue{
-    Empty = 0,
-    One = 1,
-    Two = 2,
-    Three = 3,
-    Four = 4,
-    King = 5
-}
+

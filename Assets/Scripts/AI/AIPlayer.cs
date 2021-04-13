@@ -96,12 +96,12 @@ public class AIPlayer : MonoBehaviour
 
     List<uint> GenerateIndex(uint bitBoard)
     {
-
+        //bitwise
     }
 
-    List<uint> GenerateMoves(uint bitBoards)
+    List<BitBoard> GenerateMoves(uint bitBoards)
     {
-
+        //generate 2horizontal and 2 vertical valid moves
     }
 
     void PrintBoardValue(uint bitBoard)

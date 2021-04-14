@@ -81,6 +81,8 @@ public class AIPlayer : MonoBehaviour
         return bitBoard;
     }
 
+
+
     int PieceCount(uint bitboard)
     //counts the number of 1 bits in a bitboard
     {
@@ -93,11 +95,18 @@ public class AIPlayer : MonoBehaviour
         }
         return count;
     }
-
-    List<uint> GenerateIndex(uint bitBoard)
+    List<uint> SumAsPowerOfTwos(int bitBoard)
+        //example: 14 will return {2, 4, 8}
     {
-        //bitwise
+        List<uint> mylist = new List<uint>();
+        while (bitBoard != 0)
+        {
+            mylist.Add((uint)(bitBoard & (~bitBoard + 1)));
+            bitBoard = bitBoard & (bitBoard - 1);
+        }
+        return mylist;
     }
+
 
     List<BitBoard> GenerateMoves(uint bitBoards)
     {

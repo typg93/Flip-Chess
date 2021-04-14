@@ -15,5 +15,12 @@ public class AIPlayer : MonoBehaviour
         boardY = board.boardY;
     }
 
+    void MoveGeneration()
+    {
+        foreach(Cell cell in board.cells)
+        {
+
+        }
+    }
 
 }

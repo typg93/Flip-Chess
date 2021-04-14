@@ -12,34 +12,6 @@ using UnityEngine;
 //| 08 | 09 | 10 | 11 | 12 | 13 | 14 | 15 |
 //| 00 | 01 | 02 | 03 | 04 | 05 | 06 | 07 |
 
-public struct BitBoard
-{
-    public uint RedOnes;
-    public uint RedTwos;
-    public uint RedThrees;
-    public uint RedFours;
-    public uint RedKing;
-    public uint BlueOnes;
-    public uint BlueTwos;
-    public uint BlueThrees;
-    public uint BlueFours;
-    public uint BlueKing;
-    public uint FaceUps;
-
-    public uint BluePieces, RedPieces, AllPieces;
-
-    public void Clear()
-    {
-        RedOnes = RedTwos = RedThrees = RedFours = RedKing = BlueOnes = BlueTwos = BlueThrees = BlueFours = BlueKing = 0;
-    }
-
-    public void Update()
-    {
-        BluePieces = BlueOnes | BlueTwos | BlueThrees | BlueFours | BlueKing;
-        RedPieces = RedOnes | RedTwos | RedThrees | RedFours | RedKing;
-        AllPieces = BluePieces | RedPieces;
-    }
-}
 
 public enum Player
 {

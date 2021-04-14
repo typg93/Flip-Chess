@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler, IPointerClickHandler
 {
     //cell Data
+    
     private Vector2 cellCoordinate;
     private Player cellColor;
     private bool flipState;

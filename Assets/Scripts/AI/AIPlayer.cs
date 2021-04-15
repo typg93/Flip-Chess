@@ -47,21 +47,33 @@ public class AIPlayer : MonoBehaviour
         return possibleBoards;
     }
 
-    void MakeMove(AICellData)
+    void ResolveMove()
+    {
+
+    }
 
     bool ValidMove(AICellData start, AICellData end)
     {
-        if (Math.Abs(start.position.x - end.position.x) != 1)
+        bool positionCheck = false;
+
+        if (start.position.x == end.position.x && Math.Abs(start.position.y - end.position.y) == 1)
         {
-            return false;
+            positionCheck = true;
         }
 
-        if (Math.Abs(start.position.y - end.position.y) != 1)
+        else if (start.position.y == end.position.y && Math.Abs(start.position.x - end.position.x) == 1)
         {
-
+            positionCheck = true;
         }
 
-        return false;
+        if (!positionCheck) return false;
+
+        else if (end.faceup == false || end.player == Player.Blue) return false;
+
+        else
+        {
+            return true;
+        }
     }
 
     public struct AICellData

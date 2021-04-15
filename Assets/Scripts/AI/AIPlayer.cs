@@ -41,16 +41,60 @@ public class AIPlayer : MonoBehaviour
 
         for (int index = 0; index < curBoard.Length; index++)
         {
+            if(index + boardX <= curBoard.Length && ValidMove(curBoard[index], curBoard[index+boardX]))
+            {
+                //resolvemove top
+                possibleBoards.Add(ResolveMove(index, index + boardX));
+            }
+            if (index - boardX >= 0 && ValidMove(curBoard[index], curBoard[index - boardX]))
+            {
+                //resolvemove btm
+                possibleBoards.Add(ResolveMove(index, index - boardX));
+            }
+            if (index + 1 <= curBoard.Length && ValidMove(curBoard[index], curBoard[index + 1]))
+            {
+                //resolvemove right
+                possibleBoards.Add(ResolveMove(index, index + 1));
+            }
+            if (index - 1 >= 0 && ValidMove(curBoard[index], curBoard[index - 1]))
+            {
+                //resolvemove left
+                possibleBoards.Add(ResolveMove(index, index - 1));
+            }
+        }
 
+        AICellData[] ResolveMove(int start, int end)
+        {
+            AICellData[] possibleBoard = curBoard;
+
+            if(curBoard[start].value == curBoard[end].value)
+            {
+                possibleBoard[end].value = 0;
+                possibleBoard[end].player = Player.Empty;
+            }
+
+            else if (curBoard[start].value > curBoard[end].value)
+            {
+                possibleBoard[end].value = curBoard[start].value;
+                possibleBoard[end].player = curBoard[start].player;
+            }
+
+            else if (curBoard[end].value == 5)
+            {
+                possibleBoard[end].value = curBoard[start].value;
+                possibleBoard[end].player = curBoard[start].player;
+            }
+
+            possibleBoard[start].value = 0;
+            possibleBoard[start].player = Player.Empty;
+
+            return possibleBoard;
         }
 
         return possibleBoards;
     }
 
-    void ResolveMove()
-    {
-
-    }
+    
 
     bool ValidMove(AICellData start, AICellData end)
     {
@@ -82,5 +126,10 @@ public class AIPlayer : MonoBehaviour
         public bool faceup;
         public Player player;
         public Vector2 position;
+
+        public void Reset()
+        {
+            (value, faceup, player) = (0, true, Player.Empty);
+        }
     }
 }

@@ -122,15 +122,15 @@ public class AIPlayer : MonoBehaviour
 
 
 }
-    public struct AICellData
-    {
-        public int value;
-        public bool faceup;
-        public Player player;
-        public Vector2 position;
+public struct AICellData
+{
+    public int value;
+    public bool faceup;
+    public Player player;
+    public Vector2 position;
 
-        public void Reset()
-        {
-            (value, faceup, player) = (0, true, Player.Empty);
-        }
+    public void Reset()
+    {
+        (value, faceup, player) = (0, true, Player.Empty);
     }
+}

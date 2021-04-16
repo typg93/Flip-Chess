@@ -16,7 +16,7 @@ public class TestSuite
         //| 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
         AICellData[] testBoard1 = new AICellData[32];
         testBoard1[9] = new AICellData { value = 1, player = Player.Red, faceup = true };
-        Assert.AreEqual(testBoard1[0].value, 1);
+        Assert.AreEqual(testBoard1[9].value, 1);
     }
 
 }

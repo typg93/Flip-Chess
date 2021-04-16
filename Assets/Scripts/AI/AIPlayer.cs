@@ -15,6 +15,12 @@ public class AIPlayer : MonoBehaviour
         boardY = board.boardY;
     }
 
+    public void Tester()
+    {
+        List<AICellData[]> data = GenerateMoves(ScanBoard());
+        DisplayBoardArray.instance.DisplayBoardValues(data[0]);
+    }
+
     public AICellData[] ScanBoard()
         //scans current board and flattens cell data into an array
     {
@@ -34,14 +40,16 @@ public class AIPlayer : MonoBehaviour
         return flattenedCellArray;
     }
 
-    List<AICellData[]> GenerateMoves(AICellData[] curBoard)
+    List<AICellData[]> GenerateMoves(AICellData[] board)
     {
-        //to do
+
+        AICellData[] curBoard = board;
         List<AICellData[]> possibleBoards = new List<AICellData[]>();
 
         for (int index = 0; index < curBoard.Length; index++)
         {
-            if(index + boardX <= curBoard.Length && ValidMove(curBoard[index], curBoard[index+boardX]))
+            
+            if(index + boardX < curBoard.Length && ValidMove(curBoard[index], curBoard[index+boardX]))
             {
                 //resolvemove top
                 possibleBoards.Add(ResolveMove(index, index + boardX));
@@ -51,7 +59,7 @@ public class AIPlayer : MonoBehaviour
                 //resolvemove btm
                 possibleBoards.Add(ResolveMove(index, index - boardX));
             }
-            if (index + 1 <= curBoard.Length && ValidMove(curBoard[index], curBoard[index + 1]))
+            if (index + 1 < curBoard.Length && ValidMove(curBoard[index], curBoard[index + 1]))
             {
                 //resolvemove right
                 possibleBoards.Add(ResolveMove(index, index + 1));
@@ -65,7 +73,7 @@ public class AIPlayer : MonoBehaviour
 
         AICellData[] ResolveMove(int start, int end)
         {
-            AICellData[] possibleBoard = curBoard;
+            AICellData[] possibleBoard = (AICellData[]) curBoard.Clone();
 
             if(curBoard[start].value == curBoard[end].value)
             {
@@ -100,6 +108,8 @@ public class AIPlayer : MonoBehaviour
     {
         bool positionCheck = false;
 
+        if (start.player != Player.Blue) return false;
+
         if (start.position.x == end.position.x && Math.Abs(start.position.y - end.position.y) == 1)
         {
             positionCheck = true;
@@ -119,9 +129,8 @@ public class AIPlayer : MonoBehaviour
             return true;
         }
     }
-
-
 }
+
 public struct AICellData
 {
     public int value;

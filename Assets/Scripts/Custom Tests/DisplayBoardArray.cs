@@ -21,16 +21,19 @@ public class DisplayBoardArray : Singleton<DisplayBoardArray>
         for (int i = 0; i < 32; i++)
         {
             GameObject cellDisplayGO = Instantiate(textPrefab, transform);
-            textBoard[i] = cellDisplayGO.GetComponent<TextMeshProUGUI>().text;
+            textCells[i] = cellDisplayGO;
         }
+        
     }
 
-    void DisplayBoardValues(AICellData[] boardData)
+    public void DisplayBoardValues(AICellData[] boardData)
     {
         for (int i = 0; i < 32; i++)
         {
-            textBoard[i] = boardData[i].value.ToString();
+            textCells[i].GetComponent<TextMeshProUGUI>().text = boardData[i].value.ToString();
         }
     }
+
+    
 
 }

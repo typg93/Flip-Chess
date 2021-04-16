@@ -398,7 +398,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 367757368}
         m_TargetAssemblyTypeName: AIPlayer, GameAssembly
-        m_MethodName: ScanBoardTest
+        m_MethodName: TestScanBoard
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

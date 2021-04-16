@@ -282,8 +282,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 367757368}
-        m_TargetAssemblyTypeName: AIPlayer, Assembly-CSharp
-        m_MethodName: MoveGeneration
+        m_TargetAssemblyTypeName: AIPlayer, GameAssembly
+        m_MethodName: ScanBoardTest
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

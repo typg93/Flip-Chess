@@ -33,7 +33,7 @@ public class AIPlayer : MonoBehaviour
         }
         return flattenedCellArray;
     }
-    
+
     List<AICellData[]> GenerateMoves(AICellData[] curBoard)
     {
         //to do
@@ -120,6 +120,8 @@ public class AIPlayer : MonoBehaviour
         }
     }
 
+
+}
     public struct AICellData
     {
         public int value;
@@ -132,4 +134,3 @@ public class AIPlayer : MonoBehaviour
             (value, faceup, player) = (0, true, Player.Empty);
         }
     }
-}

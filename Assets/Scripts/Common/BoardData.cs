@@ -27,5 +27,5 @@ public enum CellValue
     Two = 2,
     Three = 3,
     Four = 4,
-    King = 5
+    King = 100
 }

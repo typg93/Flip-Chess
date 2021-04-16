@@ -398,7 +398,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 367757368}
         m_TargetAssemblyTypeName: AIPlayer, GameAssembly
-        m_MethodName: TestScanBoard
+        m_MethodName: Tester
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1586,7 +1586,7 @@ MonoBehaviour:
     type: 3}
   boardX: 8
   boardY: 4
-  allGamePieces: 010000000100000001000000010000000200000002000000020000000300000003000000040000000400000005000000fffffffffffffffffffffffffffffffffefffffffefffffffefffffffdfffffffdfffffffcfffffffcfffffffbffffff
+  allGamePieces: 010000000100000001000000010000000200000002000000020000000300000003000000040000000400000064000000fffffffffffffffffffffffffffffffffefffffffefffffffefffffffdfffffffdfffffffcfffffffcffffff9cffffff
   gridColorOdd:
     serializedVersion: 2
     rgba: 4294966997

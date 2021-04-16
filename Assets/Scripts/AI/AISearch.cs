@@ -5,9 +5,15 @@ using UnityEngine;
 public class AISearch
 {
     
-    public int EvaluatePosition()
+    public int EvaluatePosition(AICellData[] board)
     {
-        return 0;
+        int pieceScore = 0;
+        for(int i = 0; i < board.Length; i++)
+        {
+            pieceScore += board[i].value * (int)board[i].player;
+        }
+
+        return pieceScore;
     }
     
 }

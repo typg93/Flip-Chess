@@ -15,10 +15,13 @@ public class AIPlayer : MonoBehaviour
         boardY = board.boardY;
     }
 
+    private int count;
     public void Tester()
     {
+        
         List<AICellData[]> data = GenerateMoves(ScanBoard());
-        DisplayBoardArray.instance.DisplayBoardValues(data[0]);
+        DisplayBoardArray.instance.DisplayBoardValues(data[count]);
+        count++;
     }
 
     public AICellData[] ScanBoard()
@@ -108,7 +111,7 @@ public class AIPlayer : MonoBehaviour
     {
         bool positionCheck = false;
 
-        if (start.player != Player.Blue) return false;
+        if (start.player != Player.Blue || start.faceup == false) return false;
 
         if (start.position.x == end.position.x && Math.Abs(start.position.y - end.position.y) == 1)
         {

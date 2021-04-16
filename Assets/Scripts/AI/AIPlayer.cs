@@ -18,7 +18,6 @@ public class AIPlayer : MonoBehaviour
     private int count;
     public void Tester()
     {
-        
         List<AICellData[]> data = GenerateMoves(ScanBoard());
         DisplayBoardArray.instance.DisplayBoardValues(data[count]);
         count++;

@@ -51,4 +51,14 @@ public class TestSuite
         testBoard1[11].player = Player.Blue;
         Assert.AreEqual(ai.EvaluatePosition(testBoard1), -5);
     }
+
+    //[Test]
+    //public void TestEvaluateInitialBoard()
+    //{
+    //    AISearch ai = new AISearch();
+    //    AIPlayer aiPlayer = new AIPlayer();
+    //    AICellData[] board = aiPlayer.ScanBoard();
+    //    Assert.AreEqual(ai.EvaluatePosition(board), 0);
+    //}
+        
 }

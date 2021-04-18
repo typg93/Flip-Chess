@@ -44,12 +44,10 @@ public class AISearch
         {
 
         }
-        
         return 0;
     }
     public List<AIBoardData> GenerateMoves(AIBoardData board)
     {
-        Debug.Log("generatemoves called");
         AIBoardData curBoard = board;
         List<AIBoardData> possibleBoards = new List<AIBoardData>();
 

@@ -26,11 +26,11 @@ public class DisplayBoardArray : Singleton<DisplayBoardArray>
         
     }
 
-    public void DisplayBoardValues(AICellData[] boardData)
+    public void DisplayBoardValues(AIBoardData aiBoardData)
     {
         for (int i = 0; i < 32; i++)
         {
-            textCells[i].GetComponent<TextMeshProUGUI>().text = boardData[i].value.ToString();
+            textCells[i].GetComponent<TextMeshProUGUI>().text = aiBoardData.boardData[i].value.ToString();
         }
     }
 

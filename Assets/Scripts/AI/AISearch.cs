@@ -37,8 +37,9 @@ public class AISearch
             int value = int.MinValue;
             foreach(AIBoardData possibleBoard in GenerateMoves(board))
             {
-                value = Math.Max(value, ExpectiMax(possibleBoard, false, depth--));
+                value = Math.Max(value, possibleBoard.probability * ExpectiMax(possibleBoard, false, depth--));
             }
+            return value;
         }
         else if (!maximizingPlayer)
         {

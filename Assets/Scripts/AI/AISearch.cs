@@ -78,7 +78,8 @@ public class AISearch
 
         AIBoardData ResolveMove(int start, int end)
         {
-            AIBoardData possibleBoard = new AIBoardData(curBoard.boardData, curBoard.probability);
+            //make a clone of a new possibleBoard with one move of current board
+            AIBoardData possibleBoard = new AIBoardData((AICellData[])curBoard.boardData.Clone(), curBoard.probability);
 
             if (curBoard.boardData[start].value == curBoard.boardData[end].value)
             {
@@ -92,7 +93,7 @@ public class AISearch
                 possibleBoard.boardData[end].player = curBoard.boardData[start].player;
             }
 
-            else if (curBoard.boardData[end].value == 5)
+            else if (curBoard.boardData[end].value == (int)CellValue.King)
             {
                 possibleBoard.boardData[end].value = curBoard.boardData[start].value;
                 possibleBoard.boardData[end].player = curBoard.boardData[start].player;

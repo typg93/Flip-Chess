@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class AISearch
 {
+    //width of board
     private int boardX = 8;
     private int boardY = 4;
     public int EvaluatePosition(AIBoardData board)
@@ -18,13 +19,6 @@ public class AISearch
         return pieceScore;
     }
 
-    //private int count;
-    //public void Tester()
-    //{
-    //    List<AICellData[]> data = GenerateMoves(ScanBoard());
-    //    DisplayBoardArray.instance.DisplayBoardValues(data[count]);
-    //    count++;
-    //}
 
     public int ExpectiMax(AIBoardData board, bool maximizingPlayer, int depth)
     {
@@ -43,9 +37,14 @@ public class AISearch
         }
         else if (!maximizingPlayer)
         {
-
+            int value = int.MaxValue;
+            foreach (AIBoardData possibleBoard in GenerateMoves(board))
+            {
+                value = Math.Min(value, possibleBoard.probability * ExpectiMax(possibleBoard, false, depth--));
+            }
+            return value;
         }
-        return 0;
+        else return 0;
     }
     public List<AIBoardData> GenerateMoves(AIBoardData board)
     {

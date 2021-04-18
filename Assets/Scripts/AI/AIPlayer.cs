@@ -8,17 +8,24 @@ public class AIPlayer : MonoBehaviour
     public Board board;
     private int boardX;
     private int boardY;
-    private AISearch AI;
+    private AISearch ai;
 
     private void Awake()
     {
         boardX = board.boardX;
         boardY = board.boardY;
+        ai = new AISearch();
     }
 
+    private int count;
+    public void Tester()
+    {
+        List<AIBoardData> data = ai.GenerateMoves(ScanBoard());
+        DisplayBoardArray.instance.DisplayBoardValues(data[count].boardData);
+        count++;
+    }
 
-
-    public AICellData[] ScanBoard()
+    public AIBoardData ScanBoard()
         //scans current board and flattens cell data into an array
     {
         AICellData[] flattenedCellArray = new AICellData[32];
@@ -34,7 +41,7 @@ public class AIPlayer : MonoBehaviour
                 flattenedCellArray[index].position = cell.GetCoordinate();
             }
         }
-        return flattenedCellArray;
+        return new AIBoardData(flattenedCellArray, 1);
     }
 
 

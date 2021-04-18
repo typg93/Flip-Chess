@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class AISearch
 {
-    
+    private int boardX = 8;
+    private int boardY = 4;
     public int EvaluatePosition(AICellData[] board)
     {
         int pieceScore = 0;
@@ -15,5 +17,122 @@ public class AISearch
 
         return pieceScore;
     }
-    
+
+    //private int count;
+    //public void Tester()
+    //{
+    //    List<AICellData[]> data = GenerateMoves(ScanBoard());
+    //    DisplayBoardArray.instance.DisplayBoardValues(data[count]);
+    //    count++;
+    //}
+
+    public int ExpectiMax(AICellData[] board, bool maximizingPlayer, int depth)
+    {
+        if(depth == 0)
+        {
+            return EvaluatePosition(board);
+        }
+        else if (maximizingPlayer)
+        {
+            int value = int.MinValue;
+            foreach(AICellData[] possibleBoard in GenerateMoves(board))
+            {
+                value = Math.Max(value, ExpectiMax(possibleBoard, false, depth--));
+            }
+        }
+        else if (!maximizingPlayer)
+        {
+
+        }
+        
+        return 0;
+    }
+    List<AICellData[]> GenerateMoves(AICellData[] board)
+    {
+
+        AICellData[] curBoard = board;
+        List<AICellData[]> possibleBoards = new List<AICellData[]>();
+
+        for (int index = 0; index < curBoard.Length; index++)
+        {
+
+            if (index + boardX < curBoard.Length && ValidMove(curBoard[index], curBoard[index + boardX]))
+            {
+                //resolvemove top
+                possibleBoards.Add(ResolveMove(index, index + boardX));
+            }
+            if (index - boardX >= 0 && ValidMove(curBoard[index], curBoard[index - boardX]))
+            {
+                //resolvemove btm
+                possibleBoards.Add(ResolveMove(index, index - boardX));
+            }
+            if (index + 1 < curBoard.Length && ValidMove(curBoard[index], curBoard[index + 1]))
+            {
+                //resolvemove right
+                possibleBoards.Add(ResolveMove(index, index + 1));
+            }
+            if (index - 1 >= 0 && ValidMove(curBoard[index], curBoard[index - 1]))
+            {
+                //resolvemove left
+                possibleBoards.Add(ResolveMove(index, index - 1));
+            }
+        }
+
+        AICellData[] ResolveMove(int start, int end)
+        {
+            AICellData[] possibleBoard = (AICellData[])curBoard.Clone();
+
+            if (curBoard[start].value == curBoard[end].value)
+            {
+                possibleBoard[end].value = 0;
+                possibleBoard[end].player = Player.Empty;
+            }
+
+            else if (curBoard[start].value > curBoard[end].value)
+            {
+                possibleBoard[end].value = curBoard[start].value;
+                possibleBoard[end].player = curBoard[start].player;
+            }
+
+            else if (curBoard[end].value == 5)
+            {
+                possibleBoard[end].value = curBoard[start].value;
+                possibleBoard[end].player = curBoard[start].player;
+            }
+
+            possibleBoard[start].value = 0;
+            possibleBoard[start].player = Player.Empty;
+
+            return possibleBoard;
+        }
+
+        return possibleBoards;
+    }
+
+
+    bool ValidMove(AICellData start, AICellData end)
+    {
+        bool positionCheck = false;
+
+        if (start.player != Player.Blue || start.faceup == false) return false;
+
+        if (start.position.x == end.position.x && Math.Abs(start.position.y - end.position.y) == 1)
+        {
+            positionCheck = true;
+        }
+
+        else if (start.position.y == end.position.y && Math.Abs(start.position.x - end.position.x) == 1)
+        {
+            positionCheck = true;
+        }
+
+        if (!positionCheck) return false;
+
+        else if (end.faceup == false || end.player == Player.Blue) return false;
+
+        else
+        {
+            return true;
+        }
+    }
 }

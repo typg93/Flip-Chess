@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class AIBoardData 
 {
-    AICellData[] boardData;
-    int probability = 1;
+    public AICellData[] boardData;
+    public int probability = 1;
+
+    public AIBoardData(AICellData[] boardData, int probability)
+    {
+        this.boardData = boardData;
+        this.probability = probability;
+    }
 }

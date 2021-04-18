@@ -7,12 +7,12 @@ public class AISearch
 {
     private int boardX = 8;
     private int boardY = 4;
-    public int EvaluatePosition(AICellData[] board)
+    public int EvaluatePosition(AIBoardData board)
     {
         int pieceScore = 0;
-        for(int i = 0; i < board.Length; i++)
+        for(int i = 0; i < board.boardData.Length; i++)
         {
-            pieceScore += board[i].value * (int)board[i].player;
+            pieceScore += board.boardData[i].value * (int)board.boardData[i].player;
         }
 
         return pieceScore;
@@ -26,7 +26,7 @@ public class AISearch
     //    count++;
     //}
 
-    public int ExpectiMax(AICellData[] board, bool maximizingPlayer, int depth)
+    public int ExpectiMax(AIBoardData board, bool maximizingPlayer, int depth)
     {
         if(depth == 0)
         {
@@ -35,7 +35,7 @@ public class AISearch
         else if (maximizingPlayer)
         {
             int value = int.MinValue;
-            foreach(AICellData[] possibleBoard in GenerateMoves(board))
+            foreach(AIBoardData possibleBoard in GenerateMoves(board))
             {
                 value = Math.Max(value, ExpectiMax(possibleBoard, false, depth--));
             }
@@ -47,61 +47,61 @@ public class AISearch
         
         return 0;
     }
-    List<AICellData[]> GenerateMoves(AICellData[] board)
+    List<AIBoardData> GenerateMoves(AIBoardData board)
     {
 
-        AICellData[] curBoard = board;
-        List<AICellData[]> possibleBoards = new List<AICellData[]>();
+        AIBoardData curBoard = board;
+        List<AIBoardData> possibleBoards = new List<AIBoardData>();
 
-        for (int index = 0; index < curBoard.Length; index++)
+        for (int index = 0; index < curBoard.boardData.Length; index++)
         {
 
-            if (index + boardX < curBoard.Length && ValidMove(curBoard[index], curBoard[index + boardX]))
+            if (index + boardX < curBoard.boardData.Length && ValidMove(curBoard.boardData[index], curBoard.boardData[index + boardX]))
             {
                 //resolvemove top
                 possibleBoards.Add(ResolveMove(index, index + boardX));
             }
-            if (index - boardX >= 0 && ValidMove(curBoard[index], curBoard[index - boardX]))
+            if (index - boardX >= 0 && ValidMove(curBoard.boardData[index], curBoard.boardData[index - boardX]))
             {
                 //resolvemove btm
                 possibleBoards.Add(ResolveMove(index, index - boardX));
             }
-            if (index + 1 < curBoard.Length && ValidMove(curBoard[index], curBoard[index + 1]))
+            if (index + 1 < curBoard.boardData.Length && ValidMove(curBoard.boardData[index], curBoard.boardData[index + 1]))
             {
                 //resolvemove right
                 possibleBoards.Add(ResolveMove(index, index + 1));
             }
-            if (index - 1 >= 0 && ValidMove(curBoard[index], curBoard[index - 1]))
+            if (index - 1 >= 0 && ValidMove(curBoard.boardData[index], curBoard.boardData[index - 1]))
             {
                 //resolvemove left
                 possibleBoards.Add(ResolveMove(index, index - 1));
             }
         }
 
-        AICellData[] ResolveMove(int start, int end)
+        AIBoardData ResolveMove(int start, int end)
         {
-            AICellData[] possibleBoard = (AICellData[])curBoard.Clone();
+            AIBoardData possibleBoard = new AIBoardData(curBoard.boardData, curBoard.probability);
 
-            if (curBoard[start].value == curBoard[end].value)
+            if (curBoard.boardData[start].value == curBoard.boardData[end].value)
             {
-                possibleBoard[end].value = 0;
-                possibleBoard[end].player = Player.Empty;
+                possibleBoard.boardData[end].value = 0;
+                possibleBoard.boardData[end].player = Player.Empty;
             }
 
-            else if (curBoard[start].value > curBoard[end].value)
+            else if (curBoard.boardData[start].value > curBoard.boardData[end].value)
             {
-                possibleBoard[end].value = curBoard[start].value;
-                possibleBoard[end].player = curBoard[start].player;
+                possibleBoard.boardData[end].value = curBoard.boardData[start].value;
+                possibleBoard.boardData[end].player = curBoard.boardData[start].player;
             }
 
-            else if (curBoard[end].value == 5)
+            else if (curBoard.boardData[end].value == 5)
             {
-                possibleBoard[end].value = curBoard[start].value;
-                possibleBoard[end].player = curBoard[start].player;
+                possibleBoard.boardData[end].value = curBoard.boardData[start].value;
+                possibleBoard.boardData[end].player = curBoard.boardData[start].player;
             }
 
-            possibleBoard[start].value = 0;
-            possibleBoard[start].player = Player.Empty;
+            possibleBoard.boardData[start].value = 0;
+            possibleBoard.boardData[start].player = Player.Empty;
 
             return possibleBoard;
         }

@@ -8,6 +8,7 @@ public class AIPlayer : MonoBehaviour
     public Board board;
     private int boardX;
     private int boardY;
+    private AISearch AI;
 
     private void Awake()
     {

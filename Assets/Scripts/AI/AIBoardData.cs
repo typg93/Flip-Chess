@@ -5,9 +5,9 @@ using UnityEngine;
 public class AIBoardData 
 {
     public AICellData[] boardData;
-    public int probability = 1;
+    public double probability = 1;
 
-    public AIBoardData(AICellData[] boardData, int probability)
+    public AIBoardData(AICellData[] boardData, double probability)
     {
         this.boardData = boardData;
         this.probability = probability;

@@ -20,7 +20,7 @@ public class AISearch
     }
 
 
-    public int ExpectiMax(AIBoardData board, bool maximizingPlayer, int depth)
+    public double ExpectiMax(AIBoardData board, bool maximizingPlayer, int depth)
     {
         if(depth == 0)
         {
@@ -28,7 +28,7 @@ public class AISearch
         }
         else if (maximizingPlayer)
         {
-            int value = int.MinValue;
+            double value = double.MinValue;
             foreach(AIBoardData possibleBoard in GenerateMoves(board))
             {
                 value = Math.Max(value, possibleBoard.probability * ExpectiMax(possibleBoard, false, depth--));
@@ -37,10 +37,10 @@ public class AISearch
         }
         else if (!maximizingPlayer)
         {
-            int value = int.MaxValue;
+            double value = double.MaxValue;
             foreach (AIBoardData possibleBoard in GenerateMoves(board))
             {
-                value = Math.Min(value, possibleBoard.probability * ExpectiMax(possibleBoard, false, depth--));
+                value = Math.Min(value, possibleBoard.probability * ExpectiMax(possibleBoard, true, depth--));
             }
             return value;
         }
@@ -53,33 +53,39 @@ public class AISearch
 
         for (int index = 0; index < curBoard.boardData.Length; index++)
         {
-
-            if (index + boardX < curBoard.boardData.Length && ValidMove(curBoard.boardData[index], curBoard.boardData[index + boardX]))
+            if (!curBoard.boardData[index].faceup)
             {
-                //resolvemove top
-                possibleBoards.Add(ResolveMove(index, index + boardX));
+                //do the flip moves
             }
-            if (index - boardX >= 0 && ValidMove(curBoard.boardData[index], curBoard.boardData[index - boardX]))
+            else
             {
-                //resolvemove btm
-                possibleBoards.Add(ResolveMove(index, index - boardX));
-            }
-            if (index + 1 < curBoard.boardData.Length && ValidMove(curBoard.boardData[index], curBoard.boardData[index + 1]))
-            {
-                //resolvemove right
-                possibleBoards.Add(ResolveMove(index, index + 1));
-            }
-            if (index - 1 >= 0 && ValidMove(curBoard.boardData[index], curBoard.boardData[index - 1]))
-            {
-                //resolvemove left
-                possibleBoards.Add(ResolveMove(index, index - 1));
+                if (index + boardX < curBoard.boardData.Length && ValidMove(curBoard.boardData[index], curBoard.boardData[index + boardX]))
+                {
+                    //resolvemove top
+                    possibleBoards.Add(ResolveMove(index, index + boardX));
+                }
+                if (index - boardX >= 0 && ValidMove(curBoard.boardData[index], curBoard.boardData[index - boardX]))
+                {
+                    //resolvemove btm
+                    possibleBoards.Add(ResolveMove(index, index - boardX));
+                }
+                if (index + 1 < curBoard.boardData.Length && ValidMove(curBoard.boardData[index], curBoard.boardData[index + 1]))
+                {
+                    //resolvemove right
+                    possibleBoards.Add(ResolveMove(index, index + 1));
+                }
+                if (index - 1 >= 0 && ValidMove(curBoard.boardData[index], curBoard.boardData[index - 1]))
+                {
+                    //resolvemove left
+                    possibleBoards.Add(ResolveMove(index, index - 1));
+                }
             }
         }
 
         AIBoardData ResolveMove(int start, int end)
         {
             //make a clone of a new possibleBoard with one move of current board
-            AIBoardData possibleBoard = new AIBoardData((AICellData[])curBoard.boardData.Clone(), curBoard.probability);
+            AIBoardData possibleBoard = new AIBoardData((AICellData[])curBoard.boardData.Clone(), 1);
 
             if (curBoard.boardData[start].value == curBoard.boardData[end].value)
             {

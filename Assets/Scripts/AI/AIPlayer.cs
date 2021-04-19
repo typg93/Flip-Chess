@@ -28,6 +28,13 @@ public class AIPlayer : MonoBehaviour
         count++;
     }
 
+    public void TestExpetiMax()
+    {
+        AIBoardData testBoard = ScanBoard();
+        double i = ai.ExpectiMax(testBoard, false, 4);
+        Debug.Log(i);
+    }
+
     public AIBoardData ScanBoard()
         //scans current board and flattens cell data into an array
     {
@@ -55,6 +62,7 @@ public struct AICellData
     public bool faceup;
     public Player player;
     public Vector2 position;
+
 
     public void Reset()
     {

@@ -15,14 +15,14 @@ public class AISearch
         {
             pieceScore += (int)board.boardData[i].value * (int)board.boardData[i].player;
         }
-
         return pieceScore;
     }
 
 
     public double ExpectiMax(AIBoardData board, bool maximizingPlayer, int depth)
     {
-        if(depth == 0)
+        //TODO: check if possiblemove is a flip move, reduce depth to 2
+        if(depth <= 0)
         {
             return EvaluatePosition(board);
         }
@@ -31,7 +31,10 @@ public class AISearch
             double value = double.MinValue;
             foreach(AIBoardData possibleBoard in GenerateMoves(board))
             {
-                value = Math.Max(value, possibleBoard.probability * ExpectiMax(possibleBoard, false, depth--));
+                //TODO: check if possiblemove is a flip move, reduce depth to 2
+                //if (probability < 1)
+                //else
+                value = Math.Max(value, possibleBoard.probability * ExpectiMax(possibleBoard, false, depth - 1));
             }
             return value;
         }
@@ -40,7 +43,7 @@ public class AISearch
             double value = double.MaxValue;
             foreach (AIBoardData possibleBoard in GenerateMoves(board))
             {
-                value = Math.Min(value, possibleBoard.probability * ExpectiMax(possibleBoard, true, depth--));
+                value = Math.Min(value, possibleBoard.probability * ExpectiMax(possibleBoard, true, depth - 1));
             }
             return value;
         }
@@ -85,7 +88,7 @@ public class AISearch
 
         AIBoardData ResolveMove(int start, int end)
         {
-            //make a clone of a new possibleBoard with one move of current board
+            //make a clone of a new possibleBoard within one move away from current board
             AIBoardData possibleBoard = new AIBoardData((AICellData[])curBoard.boardData.Clone(), 1);
 
             if (curBoard.boardData[start].value == curBoard.boardData[end].value)
@@ -115,7 +118,6 @@ public class AISearch
         return possibleBoards;
     }
 
-
     bool ValidMove(AICellData start, AICellData end)
     {
         bool positionCheck = false;
@@ -143,7 +145,7 @@ public class AISearch
     }
 
     public float ProbabilityOfPieceFlip(AIBoardData board, Player player, CellValue cellValue)
-        //calculate the probability of getting any piece while it is facedown
+        //calculate the probability of getting a certain piece while it is facedown
     {
         int value = (int)player * (int)cellValue;
         float probability = 0;

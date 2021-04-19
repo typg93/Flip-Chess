@@ -283,7 +283,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 201659104}
         m_TargetAssemblyTypeName: AIPlayer, GameAssembly
-        m_MethodName: TestExpetiMax
+        m_MethodName: TestBestMove
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -20,7 +20,7 @@ public class AIPlayer : MonoBehaviour
     private int count;
     public void Tester()
     {
-        List<AIBoardData> data = ai.GenerateMoves(ScanBoard());        
+        List<AIBoardData> data = ai.GenerateMoves(ScanBoard(), GameManager.instance.PlayerTurn());
         if(count < data.Count)
         {
             DisplayBoardArray.instance.DisplayBoardValues(data[count]);
@@ -38,7 +38,7 @@ public class AIPlayer : MonoBehaviour
     public void TestBestMove()
     {
         AIBoardData testBoard = ScanBoard();
-        DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 4));
+        DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 3));
     }
 
     public AIBoardData ScanBoard()

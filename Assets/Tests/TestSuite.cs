@@ -79,7 +79,21 @@ public class TestSuite
         Assert.AreEqual(1, ai.ProbabilityOfPieceFlip(testBoard, Player.Red, CellValue.One));
     }
 
+    [Test]
+    public void EvaluatePosition1()
+    {
+        AISearch ai = new AISearch();
+        AIBoardData testBoard = CreateTestBoard1();
+        Assert.AreEqual(1, ai.EvaluatePosition(testBoard));
+    }
 
+    [Test]
+    public void EvaluatePosition2()
+    {
+        AISearch ai = new AISearch();
+        AIBoardData testBoard = CreateTestBoardFaceDown1();
+        Assert.AreEqual(1, ai.EvaluatePosition(testBoard));
+    }
 
 
     //[Test]

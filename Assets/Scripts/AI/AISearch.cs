@@ -22,7 +22,7 @@ public class AISearch
     public AIBoardData BestMove(AIBoardData board, int depth)
     {
         List<AIBoardData> possibleBoards = new List<AIBoardData>();
-        possibleBoards = GenerateMoves(board);
+        possibleBoards = GenerateMoves(board, Player.Blue);
         AIBoardData bestBoard = possibleBoards[0];
         double bestScore = ExpectiMax(possibleBoards[0], false, depth);
 
@@ -51,7 +51,7 @@ public class AISearch
         else if (maximizingPlayer)
         {
             double value = double.MinValue;
-            foreach(AIBoardData possibleBoard in GenerateMoves(board))
+            foreach(AIBoardData possibleBoard in GenerateMoves(board, Player.Red))
             {
                 //TODO: check if possiblemove is a flip move, add a new argument of flip depth of 1
                 //if (probability < 1)
@@ -63,7 +63,7 @@ public class AISearch
         else if (!maximizingPlayer)
         {
             double value = double.MaxValue;
-            foreach (AIBoardData possibleBoard in GenerateMoves(board))
+            foreach (AIBoardData possibleBoard in GenerateMoves(board, Player.Blue))
             {
                 value = Math.Min(value, possibleBoard.probability * ExpectiMax(possibleBoard, true, depth - 1));
             }
@@ -72,7 +72,7 @@ public class AISearch
         else return 0;
     }
 
-    public List<AIBoardData> GenerateMoves(AIBoardData board)
+    public List<AIBoardData> GenerateMoves(AIBoardData board, Player player)
     {
         AIBoardData curBoard = board;
         List<AIBoardData> possibleBoards = new List<AIBoardData>();
@@ -85,22 +85,22 @@ public class AISearch
             }
             else
             {
-                if (index + boardX < curBoard.boardData.Length && ValidMove(curBoard.boardData[index], curBoard.boardData[index + boardX]))
+                if (index + boardX < curBoard.boardData.Length && ValidMove(curBoard.boardData[index], curBoard.boardData[index + boardX], player))
                 {
                     //resolvemove top
                     possibleBoards.Add(ResolveMove(index, index + boardX));
                 }
-                if (index - boardX >= 0 && ValidMove(curBoard.boardData[index], curBoard.boardData[index - boardX]))
+                if (index - boardX >= 0 && ValidMove(curBoard.boardData[index], curBoard.boardData[index - boardX], player))
                 {
                     //resolvemove btm
                     possibleBoards.Add(ResolveMove(index, index - boardX));
                 }
-                if (index + 1 < curBoard.boardData.Length && ValidMove(curBoard.boardData[index], curBoard.boardData[index + 1]))
+                if (index + 1 < curBoard.boardData.Length && ValidMove(curBoard.boardData[index], curBoard.boardData[index + 1], player))
                 {
                     //resolvemove right
                     possibleBoards.Add(ResolveMove(index, index + 1));
                 }
-                if (index - 1 >= 0 && ValidMove(curBoard.boardData[index], curBoard.boardData[index - 1]))
+                if (index - 1 >= 0 && ValidMove(curBoard.boardData[index], curBoard.boardData[index - 1], player))
                 {
                     //resolvemove left
                     possibleBoards.Add(ResolveMove(index, index - 1));
@@ -140,11 +140,11 @@ public class AISearch
         return possibleBoards;
     }
 
-    bool ValidMove(AICellData start, AICellData end)
+    bool ValidMove(AICellData start, AICellData end, Player player)
     {
         bool positionCheck = false;
 
-        if (start.player != Player.Blue || start.faceup == false) return false;
+        if (start.player != player || start.faceup == false) return false;
 
         if (start.position.x == end.position.x && Math.Abs(start.position.y - end.position.y) == 1)
         {
@@ -158,7 +158,7 @@ public class AISearch
 
         if (!positionCheck) return false;
 
-        else if (end.faceup == false || end.player == Player.Blue) return false;
+        else if (end.faceup == false || end.player == player) return false;
 
         else
         {

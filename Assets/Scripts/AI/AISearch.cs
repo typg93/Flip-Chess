@@ -24,11 +24,11 @@ public class AISearch
         List<AIBoardData> possibleBoards = new List<AIBoardData>();
         possibleBoards = GenerateMoves(board, Player.Blue);
         AIBoardData bestBoard = possibleBoards[0];
-        double bestScore = ExpectiMax(possibleBoards[0], false, depth);
+        double bestScore = ExpectiMax(possibleBoards[0], true, depth);
 
         for (int i = 0; i < possibleBoards.Count; i++)
         {
-            double newScore = ExpectiMax(possibleBoards[i], false, depth);
+            double newScore = ExpectiMax(possibleBoards[i], true, depth);
             if (newScore < bestScore)
             {
                 bestBoard = possibleBoards[i];

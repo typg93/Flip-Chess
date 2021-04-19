@@ -13,7 +13,7 @@ public class AISearch
         int pieceScore = 0;
         for(int i = 0; i < board.boardData.Length; i++)
         {
-            pieceScore += board.boardData[i].value * (int)board.boardData[i].player;
+            pieceScore += (int)board.boardData[i].value * (int)board.boardData[i].player;
         }
 
         return pieceScore;
@@ -46,6 +46,7 @@ public class AISearch
         }
         else return 0;
     }
+
     public List<AIBoardData> GenerateMoves(AIBoardData board)
     {
         AIBoardData curBoard = board;
@@ -99,7 +100,7 @@ public class AISearch
                 possibleBoard.boardData[end].player = curBoard.boardData[start].player;
             }
 
-            else if (curBoard.boardData[end].value == (int)CellValue.King)
+            else if (curBoard.boardData[end].value == CellValue.King)
             {
                 possibleBoard.boardData[end].value = curBoard.boardData[start].value;
                 possibleBoard.boardData[end].player = curBoard.boardData[start].player;
@@ -139,5 +140,11 @@ public class AISearch
         {
             return true;
         }
+    }
+
+    float ProbabilityOfPiece(AIBoardData board, int piece)
+    {
+        float x = 0;
+        return x;
     }
 }

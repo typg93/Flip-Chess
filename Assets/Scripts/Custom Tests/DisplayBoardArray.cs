@@ -26,10 +26,9 @@ public class DisplayBoardArray : Singleton<DisplayBoardArray>
 
     public void DisplayBoardValues(AIBoardData aiBoardData)
     {
-        Debug.Log("displayboardvalues");
         for (int i = 0; i < 32; i++)
         {
-            textCells[i].GetComponent<TextMeshProUGUI>().text = aiBoardData.boardData[i].value.ToString();
+            textCells[i].GetComponent<TextMeshProUGUI>().text = ((int)aiBoardData.boardData[i].value).ToString();
         }
     }
 

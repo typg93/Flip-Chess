@@ -38,7 +38,7 @@ public class AIPlayer : MonoBehaviour
             {
                 int index = y * boardX + x;
                 Cell cell = board.cells[x, y];
-                flattenedCellArray[index].value = (int)cell.GetValue();
+                flattenedCellArray[index].value = cell.GetValue();
                 flattenedCellArray[index].player = cell.GetColor();
                 flattenedCellArray[index].faceup = cell.GetFlipState();
                 flattenedCellArray[index].position = cell.GetCoordinate();
@@ -52,7 +52,7 @@ public class AIPlayer : MonoBehaviour
 
 public struct AICellData
 {
-    public int value;
+    public CellValue value;
     public bool faceup;
     public Player player;
     public Vector2 position;

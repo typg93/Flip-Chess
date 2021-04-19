@@ -142,9 +142,28 @@ public class AISearch
         }
     }
 
-    float ProbabilityOfPiece(AIBoardData board, int piece)
+    float ProbabilityOfPiece(AIBoardData board, int cellValue)
+        //calculate the probability of getting any piece while it is facedown
     {
-        float x = 0;
-        return x;
+        float probability = 0;
+        int faceDownPieces = 0;
+        Dictionary<int, int> counter = new Dictionary<int, int> { };
+
+        for(int i = 0; i < board.boardData.Length; i++)
+        {
+            if (!board.boardData[i].faceup)
+            {
+                faceDownPieces++;
+                int currCellValue = (int)board.boardData[i].player * (int)board.boardData[i].value;
+                if (counter.ContainsKey(currCellValue))
+                {
+                    counter[currCellValue] += 1;
+                }
+                else counter.Add(currCellValue, 1);
+            }
+            
+        }
+        probability = counter[cellValue] / faceDownPieces;
+        return probability;
     }
 }

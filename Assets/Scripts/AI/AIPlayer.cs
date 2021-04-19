@@ -47,7 +47,6 @@ public class AIPlayer : MonoBehaviour
         return new AIBoardData(flattenedCellArray, 1);
     }
 
-
 }
 
 public struct AICellData

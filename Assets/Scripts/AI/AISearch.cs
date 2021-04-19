@@ -142,12 +142,13 @@ public class AISearch
         }
     }
 
-    public float ProbabilityOfPieceFlip(AIBoardData board, int cellValue)
+    public float ProbabilityOfPieceFlip(AIBoardData board, Player player, CellValue cellValue)
         //calculate the probability of getting any piece while it is facedown
     {
+        int value = (int)player * (int)cellValue;
         float probability = 0;
         int totalFaceDownPieces = 0;
-        int pieceCounter = 0;
+        int targetPieceCounter = 0;
         
         for(int i = 0; i < board.boardData.Length; i++)
         {
@@ -156,13 +157,13 @@ public class AISearch
                 totalFaceDownPieces++;
                 
                 int currCellValue = (int)board.boardData[i].player * (int)board.boardData[i].value;
-                if(currCellValue == cellValue)
+                if (currCellValue == value)
                 {
-                    pieceCounter++;
+                    targetPieceCounter++;
                 }
             }
         }
-        if (totalFaceDownPieces > 0) probability = (float)pieceCounter / totalFaceDownPieces;
+        if (totalFaceDownPieces > 0) probability = (float)targetPieceCounter / totalFaceDownPieces;
         
         return probability;
     }

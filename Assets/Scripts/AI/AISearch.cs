@@ -8,6 +8,7 @@ public class AISearch
     //width of board
     private int boardX = 8;
     private int boardY = 4;
+
     public int EvaluatePosition(AIBoardData board)
     {
         int pieceScore = 0;
@@ -18,6 +19,27 @@ public class AISearch
         return pieceScore;
     }
 
+    public AIBoardData BestMove(AIBoardData board, int depth)
+    {
+        List<AIBoardData> possibleBoards = new List<AIBoardData>();
+        possibleBoards = GenerateMoves(board);
+        AIBoardData bestBoard = possibleBoards[0];
+        double bestScore = ExpectiMax(possibleBoards[0], false, depth);
+
+        for (int i = 0; i < possibleBoards.Count; i++)
+        {
+            double newScore = ExpectiMax(possibleBoards[i], false, depth);
+            if (newScore < bestScore)
+            {
+                bestBoard = possibleBoards[i];
+                bestScore = newScore;
+            }
+        }
+
+        Debug.Log(bestScore);
+
+        return bestBoard;
+    }
 
     public double ExpectiMax(AIBoardData board, bool maximizingPlayer, int depth)
     {
@@ -31,7 +53,7 @@ public class AISearch
             double value = double.MinValue;
             foreach(AIBoardData possibleBoard in GenerateMoves(board))
             {
-                //TODO: check if possiblemove is a flip move, reduce depth to 2
+                //TODO: check if possiblemove is a flip move, add a new argument of flip depth of 1
                 //if (probability < 1)
                 //else
                 value = Math.Max(value, possibleBoard.probability * ExpectiMax(possibleBoard, false, depth - 1));

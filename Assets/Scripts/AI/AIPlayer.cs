@@ -35,6 +35,12 @@ public class AIPlayer : MonoBehaviour
         Debug.Log(i);
     }
 
+    public void TestBestMove()
+    {
+        AIBoardData testBoard = ScanBoard();
+        DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 4));
+    }
+
     public AIBoardData ScanBoard()
         //scans current board and flattens cell data into an array
     {
@@ -54,18 +60,5 @@ public class AIPlayer : MonoBehaviour
         return new AIBoardData(flattenedCellArray, 1);
     }
 
-}
 
-public struct AICellData
-{
-    public CellValue value;
-    public bool faceup;
-    public Player player;
-    public Vector2 position;
-
-
-    public void Reset()
-    {
-        (value, faceup, player) = (0, true, Player.Empty);
-    }
 }

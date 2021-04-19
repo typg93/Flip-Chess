@@ -13,3 +13,17 @@ public class AIBoardData
         this.probability = probability;
     }
 }
+
+public struct AICellData
+{
+    public CellValue value;
+    public bool faceup;
+    public Player player;
+    public Vector2 position;
+
+
+    public void Reset()
+    {
+        (value, faceup, player) = (0, true, Player.Empty);
+    }
+}

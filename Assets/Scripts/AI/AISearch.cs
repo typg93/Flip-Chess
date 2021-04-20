@@ -99,8 +99,13 @@ public class AISearch
         {
             if ((canFlip) && !curBoard.boardData[index].faceup)
             {
-                Debug.Log("flip move");
-                float prob = ProbabilityOfPieceFlip(curBoard, Player.Red, CellValue.One);
+                //Debug.Log("flip move");
+                possibleBoards.Add(FlipMove(index, Player.Red, CellValue.One));
+                possibleBoards.Add(FlipMove(index, Player.Red, CellValue.Two));
+                possibleBoards.Add(FlipMove(index, Player.Red, CellValue.Three));
+                possibleBoards.Add(FlipMove(index, Player.Red, CellValue.Four));
+                possibleBoards.Add(FlipMove(index, Player.Red, CellValue.King));
+                possibleBoards.Add(FlipMove(index, Player.Blue, CellValue.King));
                 //do the flip moves
             }
             else
@@ -126,6 +131,17 @@ public class AISearch
                     possibleBoards.Add(ResolveMove(index, index - 1));
                 }
             }
+        }
+
+        AIBoardData FlipMove(int index, Player color, CellValue value)
+        {
+            float prob = ProbabilityOfPieceFlip(curBoard, color, value);
+            AIBoardData possibleBoard = new AIBoardData((AICellData[])curBoard.boardData.Clone(), prob);
+            possibleBoard.boardData[index].value = value;
+            possibleBoard.boardData[index].player = color;
+            possibleBoard.boardData[index].faceup = true;
+
+            return possibleBoard;
         }
 
         AIBoardData ResolveMove(int start, int end)

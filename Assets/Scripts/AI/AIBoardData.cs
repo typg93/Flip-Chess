@@ -6,6 +6,7 @@ public class AIBoardData
 {
     public AICellData[] boardData;
     public double probability = 1;
+    public bool gameWon = false;
 
     public AIBoardData(AICellData[] boardData, double probability)
     {
@@ -20,6 +21,7 @@ public struct AICellData
     public bool faceup;
     public Player player;
     public Vector2 position;
+    
 
 
     public void Reset()

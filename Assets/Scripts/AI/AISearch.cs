@@ -43,7 +43,7 @@ public class AISearch
 
     public double ExpectiMax(AIBoardData board, bool maximizingPlayer, int depth)
     {
-        //TODO: check if possiblemove is a flip move, reduce depth to 2
+        
         if(depth <= 0)
         {
             return EvaluatePosition(board);
@@ -56,7 +56,14 @@ public class AISearch
                 //TODO: check if possiblemove is a flip move, add a new argument of flip depth of 1
                 //if (probability < 1)
                 //else
-                value = Math.Max(value, possibleBoard.probability * ExpectiMax(possibleBoard, false, depth - 1));
+                if (!possibleBoard.gameWon)
+                {
+                    value = Math.Max(value, possibleBoard.probability * ExpectiMax(possibleBoard, false, depth - 1));
+                }
+                else if (possibleBoard.gameWon)
+                {
+                    value = double.MaxValue;
+                }
             }
             return value;
         }
@@ -65,7 +72,14 @@ public class AISearch
             double value = double.MaxValue;
             foreach (AIBoardData possibleBoard in GenerateMoves(board, Player.Blue))
             {
-                value = Math.Min(value, possibleBoard.probability * ExpectiMax(possibleBoard, true, depth - 1));
+                if (!possibleBoard.gameWon)
+                {
+                    value = Math.Min(value, possibleBoard.probability * ExpectiMax(possibleBoard, true, depth - 1));
+                }
+                else if (possibleBoard.gameWon)
+                {
+                    value = double.MinValue;
+                }
             }
             return value;
         }
@@ -113,7 +127,7 @@ public class AISearch
             //make a clone of a new possibleBoard within one move away from current board
             AIBoardData possibleBoard = new AIBoardData((AICellData[])curBoard.boardData.Clone(), 1);
 
-            if (curBoard.boardData[start].value == curBoard.boardData[end].value)
+            if (curBoard.boardData[start].value == curBoard.boardData[end].value && curBoard.boardData[start].value != CellValue.King)
             {
                 possibleBoard.boardData[end].value = 0;
                 possibleBoard.boardData[end].player = Player.Empty;
@@ -129,6 +143,7 @@ public class AISearch
             {
                 possibleBoard.boardData[end].value = curBoard.boardData[start].value;
                 possibleBoard.boardData[end].player = curBoard.boardData[start].player;
+                possibleBoard.gameWon = true;
             }
 
             possibleBoard.boardData[start].value = 0;

@@ -20,7 +20,7 @@ public class AIPlayer : MonoBehaviour
     private int count;
     public void Tester()
     {
-        List<AIBoardData> data = ai.GenerateMoves(ScanBoard(), GameManager.instance.PlayerTurn());
+        List<AIBoardData> data = ai.GenerateMoves(ScanBoard(), GameManager.instance.PlayerTurn(), false);
         if(count < data.Count)
         {
             DisplayBoardArray.instance.DisplayBoardValues(data[count]);
@@ -31,14 +31,14 @@ public class AIPlayer : MonoBehaviour
     public void TestExpetiMax()
     {
         AIBoardData testBoard = ScanBoard();
-        double i = ai.ExpectiMax(testBoard, false, 4);
+        double i = ai.ExpectiMax(testBoard, false, 4, 1);
         Debug.Log(i);
     }
 
     public void TestBestMove()
     {
         AIBoardData testBoard = ScanBoard();
-        DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 3));
+        DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 3, 0));
     }
 
     public AIBoardData ScanBoard()

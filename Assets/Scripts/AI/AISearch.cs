@@ -19,19 +19,20 @@ public class AISearch
         return pieceScore;
     }
 
-    public AIBoardData BestMove(AIBoardData board, int depth)
+    public AIBoardData BestMove(AIBoardData board, int depth, int flipDepth)
+        //Check if there is any checkmate from all one move away positions from current board. 
+        //Then calculate best move up to #depth of moves using ExpectiMax algorithm
     {
         List<AIBoardData> possibleBoards = new List<AIBoardData>();
-        possibleBoards = GenerateMoves(board, Player.Blue);
+        possibleBoards = GenerateMoves(board, Player.Blue, true);
         AIBoardData bestBoard = possibleBoards[0];
-        double bestScore = ExpectiMax(possibleBoards[0], true, depth);
+        double bestScore = ExpectiMax(possibleBoards[0], true, depth - 1, flipDepth - 1);
 
         for (int i = 0; i < possibleBoards.Count; i++)
         {
             if (!possibleBoards[i].gameWon)
             {
-                double newScore = ExpectiMax(possibleBoards[i], true, depth);
-                //Debug.Log(newScore);
+                double newScore = ExpectiMax(possibleBoards[i], true, depth - 1, flipDepth - 1);
                 if (newScore < bestScore)
                 {
                     bestBoard = possibleBoards[i];
@@ -47,9 +48,11 @@ public class AISearch
         return bestBoard;
     }
 
-    public double ExpectiMax(AIBoardData board, bool maximizingPlayer, int depth)
+    public double ExpectiMax(AIBoardData board, bool maximizingPlayer, int depth, int flipDepth)
     {
-        
+        bool canFlip = true;
+        if (flipDepth <= 0) canFlip = false;
+
         if(depth <= 0)
         {
             return EvaluatePosition(board);
@@ -57,50 +60,47 @@ public class AISearch
         else if (maximizingPlayer)
         {
             double value = double.MinValue;
-            foreach(AIBoardData possibleBoard in GenerateMoves(board, Player.Red))
+            foreach(AIBoardData possibleBoard in GenerateMoves(board, Player.Red, canFlip))
             {
-                //TODO: check if possiblemove is a flip move, add a new argument of flip depth of 1
-                //if (probability < 1)
-                //else
+
+                //Stop calculating moves if there is game winning move
                 if (!possibleBoard.gameWon)
                 {
-                    value = Math.Max(value, possibleBoard.probability * ExpectiMax(possibleBoard, false, depth - 1));
+                    value = Math.Max(value, possibleBoard.probability * ExpectiMax(possibleBoard, false, depth - 1, flipDepth));
                 }
-                else if (possibleBoard.gameWon)
-                {
-                    value = double.MaxValue;
-                }
+                else if (possibleBoard.gameWon) value = double.MaxValue;
             }
             return value;
         }
         else if (!maximizingPlayer)
         {
             double value = double.MaxValue;
-            foreach (AIBoardData possibleBoard in GenerateMoves(board, Player.Blue))
+            foreach (AIBoardData possibleBoard in GenerateMoves(board, Player.Blue, canFlip))
             {
+
+                //Stop calculating moves if there is game winning move
                 if (!possibleBoard.gameWon)
                 {
-                    value = Math.Min(value, possibleBoard.probability * ExpectiMax(possibleBoard, true, depth - 1));
+                    value = Math.Min(value, possibleBoard.probability * ExpectiMax(possibleBoard, true, depth - 1, flipDepth));
                 }
-                else if (possibleBoard.gameWon)
-                {
-                    value = double.MinValue;
-                }
+                else if (possibleBoard.gameWon) value = double.MinValue;
             }
             return value;
         }
         else return 0;
     }
 
-    public List<AIBoardData> GenerateMoves(AIBoardData board, Player player)
+    public List<AIBoardData> GenerateMoves(AIBoardData board, Player player, bool canFlip)
     {
         AIBoardData curBoard = board;
         List<AIBoardData> possibleBoards = new List<AIBoardData>();
 
         for (int index = 0; index < curBoard.boardData.Length; index++)
         {
-            if (!curBoard.boardData[index].faceup)
+            if ((canFlip) && !curBoard.boardData[index].faceup)
             {
+                Debug.Log("flip move");
+                float prob = ProbabilityOfPieceFlip(curBoard, Player.Red, CellValue.One);
                 //do the flip moves
             }
             else
@@ -133,12 +133,14 @@ public class AISearch
             //make a clone of a new possibleBoard within one move away from current board
             AIBoardData possibleBoard = new AIBoardData((AICellData[])curBoard.boardData.Clone(), 1);
 
+            //Resolve if both pieces are equal (remove both pieces)
             if (curBoard.boardData[start].value == curBoard.boardData[end].value && curBoard.boardData[start].value != CellValue.King)
             {
                 possibleBoard.boardData[end].value = 0;
                 possibleBoard.boardData[end].player = Player.Empty;
             }
 
+            //Resolve if king has been taken (game over)
             else if (curBoard.boardData[end].value == CellValue.King)
             {
                 possibleBoard.boardData[end].value = curBoard.boardData[start].value;
@@ -146,7 +148,8 @@ public class AISearch
                 possibleBoard.gameWon = true;
             }
 
-            else if (curBoard.boardData[start].value > curBoard.boardData[end].value)
+            //Resolve if taking piece
+            else if (curBoard.boardData[start].value > curBoard.boardData[end].value || curBoard.boardData[start].value == CellValue.King)
             {
                 possibleBoard.boardData[end].value = curBoard.boardData[start].value;
                 possibleBoard.boardData[end].player = curBoard.boardData[start].player;

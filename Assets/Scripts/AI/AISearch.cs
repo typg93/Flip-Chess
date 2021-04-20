@@ -28,16 +28,22 @@ public class AISearch
 
         for (int i = 0; i < possibleBoards.Count; i++)
         {
-            double newScore = ExpectiMax(possibleBoards[i], true, depth);
-            if (newScore < bestScore)
+            if (!possibleBoards[i].gameWon)
             {
-                bestBoard = possibleBoards[i];
-                bestScore = newScore;
+                double newScore = ExpectiMax(possibleBoards[i], true, depth);
+                //Debug.Log(newScore);
+                if (newScore < bestScore)
+                {
+                    bestBoard = possibleBoards[i];
+                    bestScore = newScore;
+                }
             }
+            else return possibleBoards[i];
         }
 
         Debug.Log(bestScore);
-
+        Debug.Log(bestBoard.gameWon);
+        
         return bestBoard;
     }
 
@@ -133,17 +139,17 @@ public class AISearch
                 possibleBoard.boardData[end].player = Player.Empty;
             }
 
-            else if (curBoard.boardData[start].value > curBoard.boardData[end].value)
-            {
-                possibleBoard.boardData[end].value = curBoard.boardData[start].value;
-                possibleBoard.boardData[end].player = curBoard.boardData[start].player;
-            }
-
             else if (curBoard.boardData[end].value == CellValue.King)
             {
                 possibleBoard.boardData[end].value = curBoard.boardData[start].value;
                 possibleBoard.boardData[end].player = curBoard.boardData[start].player;
                 possibleBoard.gameWon = true;
+            }
+
+            else if (curBoard.boardData[start].value > curBoard.boardData[end].value)
+            {
+                possibleBoard.boardData[end].value = curBoard.boardData[start].value;
+                possibleBoard.boardData[end].player = curBoard.boardData[start].player;
             }
 
             possibleBoard.boardData[start].value = 0;

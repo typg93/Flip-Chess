@@ -17,7 +17,7 @@ public class AIBoardData
     public bool chanceNode = false;
     public int flipIndex = -1;
     public bool gameWon = false;
-    public int scoreOffset = 0;
+    public double scoreOffset = 0;
 
     public AIBoardData(AICellData[] boardData, double probability, bool chanceNode)
     {

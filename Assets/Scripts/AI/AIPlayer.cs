@@ -33,7 +33,7 @@ public class AIPlayer : MonoBehaviour
     public void TestExpetiMax()
     {
         AIBoardData testBoard = ScanBoard();
-        double i = ai.ExpectiMax(testBoard, false, 4, 1);
+        double i = ai.ExpectiMax(testBoard, false, 4);
         Debug.Log(i);
     }
 
@@ -41,23 +41,13 @@ public class AIPlayer : MonoBehaviour
     {
         AISearch ai = new AISearch();
         AIBoardData testBoard = ScanBoard();
-        DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 4, 1));
+        DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 5, 1));
     }
     public void TestGenerateFlipMove()
     {
         AISearch ai = new AISearch();
-        AIBoardData testBoard = ScanBoard();
-        testBoard.flipIndex = 2;
-
-        AIBoardData flippedBoard2 = ai.GenerateFlipMove(testBoard, Player.Red, CellValue.One);
-
-        testBoard.flipIndex = 0;
-        AIBoardData flippedBoard0 = ai.GenerateFlipMove(testBoard, Player.Red, CellValue.One);
-        
-        DisplayBoardArray.instance.DisplayBoardValues(flippedBoard2);
-
-        Debug.Log(ai.ExpectiMax(flippedBoard2, true, 4, 0));
-        Debug.Log(ai.ExpectiMax(flippedBoard0, true, 4, 0));
+        List<double> myList = new List<double>{ 1, 3, 5, 6, 0, -1};
+        Debug.Log(ai.AverageWithoutZeros(myList));
     }
 
     public AIBoardData ScanBoard()

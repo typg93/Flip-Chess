@@ -28,7 +28,13 @@ public class DisplayBoardArray : Singleton<DisplayBoardArray>
     {
         for (int i = 0; i < 32; i++)
         {
-            textCells[i].GetComponent<TextMeshProUGUI>().text = ((int)aiBoardData.boardData[i].value).ToString();
+            string cellText = "";
+            if (aiBoardData.boardData[i].faceup) cellText = "^";
+            else cellText = "v";
+
+            if (aiBoardData.boardData[i].value == CellValue.King) cellText += "K";
+            else cellText += ((int)aiBoardData.boardData[i].value).ToString();
+            textCells[i].GetComponent<TextMeshProUGUI>().text = cellText;
         }
     }
 

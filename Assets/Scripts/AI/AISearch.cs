@@ -100,7 +100,8 @@ public class AISearch
             if ((canFlip) && !curBoard.boardData[index].faceup)
             {
                 //Debug.Log("flip move");
-                possibleBoards.Add(FlipMove(index, Player.Red, CellValue.One));
+                List<float> avgExpectiMaxValues = new List<float>();
+                avgExpectiMaxValues.Add(ExpectiMax(FlipMove(index, Player.Red, CellValue.One)), player, false);
                 possibleBoards.Add(FlipMove(index, Player.Red, CellValue.Two));
                 possibleBoards.Add(FlipMove(index, Player.Red, CellValue.Three));
                 possibleBoards.Add(FlipMove(index, Player.Red, CellValue.Four));

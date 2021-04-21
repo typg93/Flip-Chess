@@ -14,7 +14,7 @@ public class TestSuite
         //| 1r^ | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
         AICellData[] boardData = new AICellData[32];
         boardData[0] = new AICellData { value = CellValue.One, player = Player.Red, faceup = true };
-        AIBoardData board = new AIBoardData(boardData, 1);
+        AIBoardData board = new AIBoardData(boardData, 1, false);
         return board;
     }
 
@@ -29,7 +29,7 @@ public class TestSuite
         boardData[8] = new AICellData { value = CellValue.Two, player = Player.Red, faceup = false };
         boardData[16] = new AICellData { value = CellValue.One, player = Player.Blue, faceup = false };
         boardData[17] = new AICellData { value = CellValue.One, player = Player.Blue, faceup = true };
-        AIBoardData board = new AIBoardData(boardData, 1);
+        AIBoardData board = new AIBoardData(boardData, 1, false);
         return board;
     }
 
@@ -44,7 +44,7 @@ public class TestSuite
         boardData[8] = new AICellData { value = CellValue.One, player = Player.Red, faceup = false };
         boardData[16] = new AICellData { value = CellValue.One, player = Player.Red, faceup = false };
         boardData[17] = new AICellData { value = CellValue.One, player = Player.Red, faceup = false };
-        AIBoardData board = new AIBoardData(boardData, 1);
+        AIBoardData board = new AIBoardData(boardData, 1, false);
         return board;
     }
 

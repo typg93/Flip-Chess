@@ -40,7 +40,7 @@ public class AIPlayer : MonoBehaviour
     public void TestBestMove()
     {
         AIBoardData testBoard = ScanBoard();
-        DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 4, 0));
+        DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 4, 1));
     }
 
     public AIBoardData ScanBoard()
@@ -59,7 +59,7 @@ public class AIPlayer : MonoBehaviour
                 flattenedCellArray[index].position = cell.GetCoordinate();
             }
         }
-        return new AIBoardData(flattenedCellArray, 1);
+        return new AIBoardData(flattenedCellArray, 1, false);
     }
 
 

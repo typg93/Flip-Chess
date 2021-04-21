@@ -30,7 +30,16 @@ public class AISearch
 
         for (int i = 0; i < possibleBoards.Count; i++)
         {
-            if (!possibleBoards[i].gameWon)
+            if (possibleBoards[i].chanceNode)
+            {
+                double newScore = ExpectiMaxChanceNode(possibleBoards[i], true, depth - 1);
+                if (newScore < bestScore)
+                {
+                    bestBoard = possibleBoards[i];
+                    bestScore = newScore;
+                }
+            }
+            else if (!possibleBoards[i].gameWon)
             {
                 double newScore = ExpectiMax(possibleBoards[i], true, depth - 1, flipDepth);
                 if (newScore < bestScore)
@@ -46,6 +55,27 @@ public class AISearch
         Debug.Log(bestBoard.gameWon);
         
         return bestBoard;
+    }
+
+    public double ExpectiMaxChanceNode(AIBoardData board, bool maximizingPlayer, int depth)
+    {
+        double value = double.MaxValue;
+        List<double> averages = new List<double>();
+
+        averages.Add(ProbabilityOfPieceFlip(board, Player.Blue, CellValue.One) * ExpectiMax(GenerateFlipMove(board, Player.Blue, CellValue.One), maximizingPlayer, depth - 1, 0));
+        averages.Add(ProbabilityOfPieceFlip(board, Player.Blue, CellValue.Two) * ExpectiMax(GenerateFlipMove(board, Player.Blue, CellValue.Two), maximizingPlayer, depth - 1, 0));
+        averages.Add(ProbabilityOfPieceFlip(board, Player.Blue, CellValue.Three) * ExpectiMax(GenerateFlipMove(board, Player.Blue, CellValue.Three), maximizingPlayer, depth - 1, 0));
+        averages.Add(ProbabilityOfPieceFlip(board, Player.Blue, CellValue.Four) * ExpectiMax(GenerateFlipMove(board, Player.Blue, CellValue.Four), maximizingPlayer, depth - 1, 0));
+        averages.Add(ProbabilityOfPieceFlip(board, Player.Blue, CellValue.King) * ExpectiMax(GenerateFlipMove(board, Player.Blue, CellValue.King), maximizingPlayer, depth - 1, 0));
+
+        averages.Add(ProbabilityOfPieceFlip(board, Player.Red, CellValue.One) * ExpectiMax(GenerateFlipMove(board, Player.Red, CellValue.One), maximizingPlayer, depth - 1, 0));
+        averages.Add(ProbabilityOfPieceFlip(board, Player.Red, CellValue.Two) * ExpectiMax(GenerateFlipMove(board, Player.Red, CellValue.Two), maximizingPlayer, depth - 1, 0));
+        averages.Add(ProbabilityOfPieceFlip(board, Player.Red, CellValue.Three) * ExpectiMax(GenerateFlipMove(board, Player.Red, CellValue.Three), maximizingPlayer, depth - 1, 0));
+        averages.Add(ProbabilityOfPieceFlip(board, Player.Red, CellValue.Four) * ExpectiMax(GenerateFlipMove(board, Player.Red, CellValue.Four), maximizingPlayer, depth - 1, 0));
+        averages.Add(ProbabilityOfPieceFlip(board, Player.Red, CellValue.King) * ExpectiMax(GenerateFlipMove(board, Player.Red, CellValue.King), maximizingPlayer, depth - 1, 0));
+
+        value = AverageWithoutZeros(averages);
+        return value;
     }
 
     public double ExpectiMax(AIBoardData board, bool maximizingPlayer, int depth, int flipDepth)
@@ -64,16 +94,15 @@ public class AISearch
             {
                 if (possibleBoard.chanceNode)
                 {
-                    value = Math.Max(value, ExpectiMax(possibleBoard, false, depth - 1, flipDepth));
-                }
 
-                //Stop calculating moves if there is game winning move
+                }
                 else if (possibleBoard.gameWon) value = double.MaxValue;
 
                 else
                 {
                     value = Math.Max(value, ExpectiMax(possibleBoard, false, depth - 1, flipDepth));
                 }
+
 
             }
             return value;
@@ -85,20 +114,20 @@ public class AISearch
             {
                 if (possibleBoard.chanceNode)
                 {
-                    List<double> averages = new List<double>();
+
+
+                    //List<double> averages = new List<double>();
                     //averages.Add(ExpectiMax(GenerateFlipMove(possibleBoard, Player.Red, CellValue.One), !maximizingPlayer, depth, flipDepth - 1));
                     //averages.Add(ExpectiMax(GenerateFlipMove(possibleBoard, Player.Red, CellValue.Two), !maximizingPlayer, depth, flipDepth - 1));
-                    //averages.Add(ProbabilityOfPieceFlip(board, Player.Red, CellValue.Three) * ExpectiMax(GenerateFlipMove(possibleBoard, Player.Red, CellValue.Three), maximizingPlayer, depth - 1, flipDepth - 1));
+                    //averages.Add(ExpectiMax(GenerateFlipMove(possibleBoard, Player.Red, CellValue.Three), maximizingPlayer, depth, flipDepth - 1));
                     //averages.Add(ExpectiMax(GenerateFlipMove(possibleBoard, Player.Red, CellValue.Four), !maximizingPlayer, depth, flipDepth - 1));
                     //averages.Add(ExpectiMax(GenerateFlipMove(possibleBoard, Player.Red, CellValue.King), !maximizingPlayer, depth, flipDepth - 1));
-
                     //averages.Add(ExpectiMax(GenerateFlipMove(possibleBoard, Player.Blue, CellValue.One), !maximizingPlayer, depth, flipDepth - 1));
                     //averages.Add(ExpectiMax(GenerateFlipMove(possibleBoard, Player.Blue, CellValue.Two), !maximizingPlayer, depth, flipDepth - 1));
-                    averages.Add(ProbabilityOfPieceFlip(board, Player.Blue, CellValue.Three) * ExpectiMax(GenerateFlipMove(possibleBoard, Player.Blue, CellValue.Three), maximizingPlayer, depth - 1, flipDepth - 1));
-                    averages.Add(ProbabilityOfPieceFlip(board, Player.Blue, CellValue.Four) * ExpectiMax(GenerateFlipMove(possibleBoard, Player.Blue, CellValue.Four), maximizingPlayer, depth - 1, flipDepth - 1));
+                    //averages.Add(0.1 * ExpectiMax(GenerateFlipMove(possibleBoard, Player.Blue, CellValue.Three), maximizingPlayer, depth, flipDepth - 1));
+                    //averages.Add(ProbabilityOfPieceFlip(board, Player.Blue, CellValue.Four) * ExpectiMax(GenerateFlipMove(possibleBoard, Player.Blue, CellValue.Four), maximizingPlayer, depth - 1, flipDepth - 1));
                     //averages.Add(ExpectiMax(GenerateFlipMove(possibleBoard, Player.Blue, CellValue.King), !maximizingPlayer, depth, flipDepth - 1));
-
-                    value = Math.Min(value, AverageWithoutZeros(averages));
+                    //value = Math.Min(value, AverageWithoutZeros(averages));
                 }
 
                 //Stop calculating moves if there is game winning move
@@ -113,35 +142,38 @@ public class AISearch
             return value;
         }
         else return 0;
-
-        double AverageWithoutZeros(List<double> list)
-        {
-            double totalScore = 0;
-            int counter = 0;
-            foreach(double score in list)
-            {
-                if(score != 0)
-                {
-                    counter++;
-                    totalScore += score;
-                }
-            }
-            return totalScore / counter;
-        }
     }
 
-    AIBoardData GenerateFlipMove(AIBoardData board, Player color, CellValue value)
+    double AverageWithoutZeros(List<double> list)
+    {
+        double totalScore = 0;
+        int counter = 0;
+        foreach (double score in list)
+        {
+            if (score != 0)
+            {
+                counter++;
+                totalScore += score;
+            }
+        }
+        return totalScore / counter;
+    }
+
+    public AIBoardData GenerateFlipMove(AIBoardData board, Player color, CellValue value)
     {
         int index = board.flipIndex;
-        float prob = ProbabilityOfPieceFlip(board, color, value);
-        AIBoardData possibleBoard = new AIBoardData((AICellData[])board.boardData.Clone(), prob, false);
-        
+        AIBoardData possibleBoard = new AIBoardData((AICellData[])board.boardData.Clone(), 1, false);
+
         possibleBoard.boardData[index].value = value;
         possibleBoard.boardData[index].player = color;
         possibleBoard.boardData[index].faceup = true;
+        possibleBoard.chanceNode = false;
+        possibleBoard.scoreOffset = board.scoreOffset;
+        possibleBoard.flipIndex = index;
+        possibleBoard.probability = 1;
 
         int scoreOffSet = (int)board.boardData[index].player * (int)board.boardData[index].value -
-                            (int)possibleBoard.boardData[index].player * (int)board.boardData[index].value;
+                            (int)possibleBoard.boardData[index].player * (int)possibleBoard.boardData[index].value;
 
         possibleBoard.scoreOffset += scoreOffSet;
         return possibleBoard;
@@ -219,6 +251,8 @@ public class AISearch
 
             possibleBoard.boardData[start].value = 0;
             possibleBoard.boardData[start].player = Player.Empty;
+            possibleBoard.scoreOffset = curBoard.scoreOffset;
+            possibleBoard.flipIndex = curBoard.flipIndex;
 
             return possibleBoard;
         }

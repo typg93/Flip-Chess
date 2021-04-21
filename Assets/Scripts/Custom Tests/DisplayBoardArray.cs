@@ -11,13 +11,13 @@ public class DisplayBoardArray : Singleton<DisplayBoardArray>
     private GameObject[] textCells;
 
     void Start() {
-        textCells = new GameObject[34];
+        textCells = new GameObject[35];
         CreateGrid();
     }
 
     void CreateGrid()
     {
-        for (int i = 0; i < 34; i++)
+        for (int i = 0; i < 35; i++)
         {
             GameObject cellDisplayGO = Instantiate(textPrefab, transform);
             textCells[i] = cellDisplayGO;
@@ -39,6 +39,7 @@ public class DisplayBoardArray : Singleton<DisplayBoardArray>
 
         textCells[32].GetComponent<TextMeshProUGUI>().text = aiBoardData.chanceNode.ToString();
         textCells[33].GetComponent<TextMeshProUGUI>().text = aiBoardData.flipIndex.ToString();
+        textCells[34].GetComponent<TextMeshProUGUI>().text = aiBoardData.scoreOffset.ToString();
     }
 
     

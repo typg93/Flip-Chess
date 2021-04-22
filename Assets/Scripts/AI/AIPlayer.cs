@@ -69,5 +69,14 @@ public class AIPlayer : MonoBehaviour
         return new AIBoardData(flattenedCellArray, 1, false);
     }
 
+    public void MakeMove(AIBoardData startBoard, AIBoardData endBoard)
+    {
+        if (endBoard.chanceNode)
+        {
+            int x = endBoard.flipIndex % boardY;
+            int y = endBoard.flipIndex / boardX;
+            board.cells[x,y].ChangeValue(true);
+        }
+    }
 
 }

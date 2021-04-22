@@ -47,7 +47,7 @@ public class AIPlayer : MonoBehaviour
     {
         AISearch ai = new AISearch();
         List<double> myList = new List<double>{ 1, 3, 5, 6, 0, -1};
-        Debug.Log(ai.AverageWithoutZeros(myList));
+        Debug.Log(ai.SumOfList(myList));
     }
 
     public AIBoardData ScanBoard()

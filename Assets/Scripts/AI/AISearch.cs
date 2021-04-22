@@ -66,7 +66,6 @@ public class AISearch
 
         probability = ProbabilityOfPieceFlip(board, Player.Blue, CellValue.One);
         averages.Add(probability * ExpectiMax(GenerateFlipMove(board, Player.Blue, CellValue.One), maximizingPlayer, depth - 1));
-        //Debug.Log(averages[0] + " " + probability);
 
         probability = ProbabilityOfPieceFlip(board, Player.Blue, CellValue.Two);
         averages.Add(probability * ExpectiMax(GenerateFlipMove(board, Player.Blue, CellValue.Two), maximizingPlayer, depth - 1));

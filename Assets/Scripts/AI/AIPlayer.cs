@@ -46,8 +46,9 @@ public class AIPlayer : MonoBehaviour
     public void TestGenerateFlipMove()
     {
         AISearch ai = new AISearch();
-        List<double> myList = new List<double>{ 1, 3, 5, 6, 0, -1};
-        Debug.Log(ai.SumOfList(myList));
+        AIBoardData testBoard = ScanBoard();
+        AIBoardData bestBoard = ai.BestMove(testBoard, 5, 1);
+        MakeMove(testBoard, bestBoard);
     }
 
     public AIBoardData ScanBoard()
@@ -73,9 +74,10 @@ public class AIPlayer : MonoBehaviour
     {
         if (endBoard.chanceNode)
         {
-            int x = endBoard.flipIndex % boardY;
+            int x = endBoard.flipIndex % boardX;
             int y = endBoard.flipIndex / boardX;
             board.cells[x,y].ChangeValue(true);
+            GameManager.instance.EndTurn();
         }
     }
 

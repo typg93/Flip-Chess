@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class AISearch
 {
@@ -38,7 +39,6 @@ public class AISearch
                     bestBoard = possibleBoards[i];
                     bestScore = newScore;
                 }
-                Debug.Log("chance node bestscore " + bestScore);
             }
             else if (!possibleBoards[i].gameWon)
             {
@@ -93,12 +93,9 @@ public class AISearch
 
         probability = ProbabilityOfPieceFlip(board, Player.Red, CellValue.King);
         averages.Add(probability * ExpectiMax(GenerateFlipMove(board, Player.Red, CellValue.King), maximizingPlayer, depth - 1));
-        
 
-        
         value = SumOfList(averages);
-        Debug.Log("value is " + value);
-        board.scoreOffset -= 0.01;
+        board.scoreOffset += Random.Range(-0.1f,0.15f);
         return value;
     }
 
@@ -117,7 +114,7 @@ public class AISearch
             {
                 if (possibleBoard.chanceNode)
                 {
-                    
+
                 }
                 else if (possibleBoard.gameWon) value = (int)CellValue.King;
 
@@ -135,7 +132,7 @@ public class AISearch
             {
                 if (possibleBoard.chanceNode)
                 {
-                    
+
                 }
 
                 //Stop calculating moves if there is game winning move
@@ -165,7 +162,7 @@ public class AISearch
     public AIBoardData GenerateFlipMove(AIBoardData board, Player color, CellValue value)
     {
         int index = board.flipIndex;
-        AIBoardData possibleBoard = new AIBoardData((AICellData[])board.boardData.Clone(), 1, false);
+        AIBoardData possibleBoard = new AIBoardData((AICellData[])board.boardData.Clone(), false);
 
         possibleBoard.boardData[index].value = value;
         possibleBoard.boardData[index].player = color;
@@ -193,7 +190,7 @@ public class AISearch
             //generate board with piece index to be flipped
             if (!curBoard.boardData[index].faceup)
             {
-                AIBoardData possibleBoard = new AIBoardData((AICellData[])curBoard.boardData.Clone(), 1, true);
+                AIBoardData possibleBoard = new AIBoardData((AICellData[])curBoard.boardData.Clone(), true);
                 possibleBoard.flipIndex = index;
                 possibleBoard.chanceNode = true;
                 possibleBoard.boardData[index].faceup = false;
@@ -229,7 +226,7 @@ public class AISearch
         AIBoardData ResolveMove(int start, int end)
         {
             //make a clone of a new possibleBoard within one move away from current board
-            AIBoardData possibleBoard = new AIBoardData((AICellData[])curBoard.boardData.Clone(), 1, false);
+            AIBoardData possibleBoard = new AIBoardData((AICellData[])curBoard.boardData.Clone(), false);
 
             //Resolve if both pieces are equal (remove both pieces)
             if (curBoard.boardData[start].value == curBoard.boardData[end].value && curBoard.boardData[start].value != CellValue.King)
@@ -253,6 +250,8 @@ public class AISearch
                 possibleBoard.boardData[end].player = curBoard.boardData[start].player;
             }
 
+            possibleBoard.moveFromIndex = start;
+            possibleBoard.moveToIndex = end;
             possibleBoard.boardData[start].value = 0;
             possibleBoard.boardData[start].player = Player.Empty;
             possibleBoard.scoreOffset = curBoard.scoreOffset;

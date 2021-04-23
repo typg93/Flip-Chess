@@ -17,41 +17,21 @@ public class AIPlayer : MonoBehaviour
         ai = new AISearch();
     }
 
-    private int count;
-    public void Tester()
-    {
-        
-        List<AIBoardData> data = ai.GenerateMoves(ScanBoard(), GameManager.instance.PlayerTurn(), true);
-        if(count < data.Count)
-        {
-            DisplayBoardArray.instance.DisplayBoardValues(data[count]);
-            Debug.Log(data[count].probability);
-        }
-        count++;
-    }
-
-    public void TestExpetiMax()
-    {
-        AIBoardData testBoard = ScanBoard();
-        double i = ai.ExpectiMax(testBoard, false, 4);
-        Debug.Log(i);
-    }
-
     public void TestBestMove()
     {
         AISearch ai = new AISearch();
         AIBoardData testBoard = ScanBoard();
-        DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 5, 1));
+        DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 4, 1));
     }
     public void TestGenerateFlipMove()
     {
         AISearch ai = new AISearch();
         AIBoardData testBoard = ScanBoard();
-        AIBoardData bestBoard = ai.BestMove(testBoard, 5, 1);
+        AIBoardData bestBoard = ai.BestMove(testBoard, 4, 1);
         MakeMove(testBoard, bestBoard);
     }
 
-    public AIBoardData ScanBoard()
+    AIBoardData ScanBoard()
         //scans current board and flattens cell data into an array
     {
         AICellData[] flattenedCellArray = new AICellData[32];
@@ -67,7 +47,7 @@ public class AIPlayer : MonoBehaviour
                 flattenedCellArray[index].position = cell.GetCoordinate();
             }
         }
-        return new AIBoardData(flattenedCellArray, 1, false);
+        return new AIBoardData(flattenedCellArray, false);
     }
 
     public void MakeMove(AIBoardData startBoard, AIBoardData endBoard)
@@ -77,8 +57,17 @@ public class AIPlayer : MonoBehaviour
             int x = endBoard.flipIndex % boardX;
             int y = endBoard.flipIndex / boardX;
             board.cells[x,y].ChangeValue(true);
-            GameManager.instance.EndTurn();
         }
+        else
+        {
+            int moveFromX = endBoard.moveFromIndex % boardX;
+            int moveFromY = endBoard.moveFromIndex / boardX;
+            int moveToX = endBoard.moveToIndex % boardX;
+            int moveToY = endBoard.moveToIndex / boardX;
+            board.cells[moveFromX, moveFromY].MoveTo(board.cells[moveToX, moveToY]);
+            Debug.Log(moveFromX + " " + moveFromY + " to: " + moveToX + " " + moveToY);
+        }
+        GameManager.instance.EndTurn();
     }
 
 }

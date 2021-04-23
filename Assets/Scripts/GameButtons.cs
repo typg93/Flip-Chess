@@ -29,6 +29,6 @@ public class GameButtons : Button
         {
             Invoke("ResetBoard", i*0.1f);
         }
-        Invoke("FlipAllPiecesUp", 1.1f);
+        Invoke("FlipAllPiecesUp", 0.6f);
     }
 }

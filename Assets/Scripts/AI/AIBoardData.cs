@@ -13,16 +13,16 @@ public class AIBoardData
     //gameWon - halt the ExpectiMax method once the game has been won
 
     public AICellData[] boardData;
-    public double probability = 1;
     public bool chanceNode = false;
     public int flipIndex = -1;
     public bool gameWon = false;
     public double scoreOffset = 0;
+    public int moveFromIndex = 0;
+    public int moveToIndex = 0;
 
-    public AIBoardData(AICellData[] boardData, double probability, bool chanceNode)
+    public AIBoardData(AICellData[] boardData, bool chanceNode)
     {
         this.boardData = boardData;
-        this.probability = probability;
         this.chanceNode = chanceNode;
     }
 }

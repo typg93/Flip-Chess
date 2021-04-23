@@ -27,6 +27,9 @@ public class GameManager : Singleton<GameManager>
         {
             TextInfo.GetComponent<TextMeshProUGUI>().text = "Blue Turn";
             turn = Player.Blue;
+
+            //OnEndTurnArgs e = new OnEndTurnArgs { newTurn = this.turn };
+            //OnEndTurn?.Invoke(this, e);
         }
 
         else if (turn == Player.Blue)
@@ -34,8 +37,6 @@ public class GameManager : Singleton<GameManager>
             TextInfo.GetComponent<TextMeshProUGUI>().text = "Red Turn";
             turn = Player.Red;
         }
-        OnEndTurnArgs e = new OnEndTurnArgs { newTurn = this.turn };
-        OnEndTurn?.Invoke(this, e);
     }
 
     public Player PlayerTurn()

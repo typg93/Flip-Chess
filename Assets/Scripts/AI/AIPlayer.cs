@@ -17,6 +17,18 @@ public class AIPlayer : MonoBehaviour
         ai = new AISearch();
     }
 
+    private void Start()
+    {
+        GameManager.instance.OnEndTurn += GM_OnEndTurn;
+    }
+
+    public void GM_OnEndTurn(object sender, EventArgs e)
+    {
+        AIBoardData testBoard = ScanBoard();
+        AIBoardData bestBoard = ai.BestMove(testBoard, 4, 1);
+        MakeMove(testBoard, bestBoard);
+    }
+
     public void TestBestMove()
     {
         AISearch ai = new AISearch();
@@ -56,7 +68,7 @@ public class AIPlayer : MonoBehaviour
         {
             int x = endBoard.flipIndex % boardX;
             int y = endBoard.flipIndex / boardX;
-            board.cells[x,y].ChangeValue(true);
+            board.cells[x,y].FlipMove();
         }
         else
         {
@@ -67,7 +79,6 @@ public class AIPlayer : MonoBehaviour
             board.cells[moveFromX, moveFromY].MoveTo(board.cells[moveToX, moveToY]);
             Debug.Log(moveFromX + " " + moveFromY + " to: " + moveToX + " " + moveToY);
         }
-        GameManager.instance.EndTurn();
     }
 
 }

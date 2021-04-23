@@ -88,8 +88,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     {
         if (!flipState)
         {
-            ChangeValue(true);
-            GameManager.instance.EndTurn();
+            FlipMove();
         }
     }
     
@@ -111,6 +110,12 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     #endregion
 
     #region Move Logic
+
+    public void FlipMove()
+    {
+        ChangeValue(true);
+        GameManager.instance.EndTurn();
+    }
     public void MoveTo(Cell target)
     {
         if (ValidMove(this, target))

@@ -8,7 +8,6 @@ public class AISearch
 {
     //width of board
     private int boardX = 8;
-    private int boardY = 4;
 
     public double EvaluatePosition(AIBoardData board)
     {
@@ -42,6 +41,10 @@ public class AISearch
             }
             else if (!possibleBoards[i].gameWon)
             {
+                if (possibleBoards[i].takePiece)
+                {
+                    possibleBoards[i].scoreOffset -= 0.5;
+                }
                 double newScore = ExpectiMax(possibleBoards[i], true, depth - 1);
                 if (newScore < bestScore)
                 {
@@ -246,6 +249,10 @@ public class AISearch
             //Resolve if taking piece
             else if (curBoard.boardData[start].value > curBoard.boardData[end].value || curBoard.boardData[start].value == CellValue.King)
             {
+                if (curBoard.boardData[end].value != CellValue.Empty)
+                {
+                    possibleBoard.takePiece = true;
+                }
                 possibleBoard.boardData[end].value = curBoard.boardData[start].value;
                 possibleBoard.boardData[end].player = curBoard.boardData[start].player;
             }

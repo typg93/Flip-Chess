@@ -9,6 +9,8 @@ public class GameManager : Singleton<GameManager>
 {
     public Player turn = Player.Red;
     public GameObject TextInfo;
+    public GameObject computer;
+    private AIPlayer ai;
 
     public event EventHandler<OnEndTurnArgs> OnEndTurn;
     public class OnEndTurnArgs : EventArgs
@@ -19,6 +21,7 @@ public class GameManager : Singleton<GameManager>
     private void Start()
     {
         turn = Player.Red; // red goes first
+        ai = computer.GetComponent<AIPlayer>();
     }
 
     public void EndTurn()
@@ -27,9 +30,8 @@ public class GameManager : Singleton<GameManager>
         {
             TextInfo.GetComponent<TextMeshProUGUI>().text = "Blue Turn";
             turn = Player.Blue;
-
-            //OnEndTurnArgs e = new OnEndTurnArgs { newTurn = this.turn };
-            //OnEndTurn?.Invoke(this, e);
+            StartCoroutine(ai.FinishMove());
+            //ai.FinishMove();
         }
 
         else if (turn == Player.Blue)

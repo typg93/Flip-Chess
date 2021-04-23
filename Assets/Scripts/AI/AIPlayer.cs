@@ -19,14 +19,7 @@ public class AIPlayer : MonoBehaviour
 
     private void Start()
     {
-        GameManager.instance.OnEndTurn += GM_OnEndTurn;
-    }
 
-    public void GM_OnEndTurn(object sender, EventArgs e)
-    {
-        AIBoardData testBoard = ScanBoard();
-        AIBoardData bestBoard = ai.BestMove(testBoard, 4, 1);
-        MakeMove(testBoard, bestBoard);
     }
 
     public void TestBestMove()
@@ -35,10 +28,11 @@ public class AIPlayer : MonoBehaviour
         AIBoardData testBoard = ScanBoard();
         DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 4, 1));
     }
-    public void TestGenerateFlipMove()
+    public IEnumerator FinishMove()
     {
         AISearch ai = new AISearch();
         AIBoardData testBoard = ScanBoard();
+        yield return new WaitForSeconds(1);
         AIBoardData bestBoard = ai.BestMove(testBoard, 4, 1);
         MakeMove(testBoard, bestBoard);
     }
@@ -62,7 +56,7 @@ public class AIPlayer : MonoBehaviour
         return new AIBoardData(flattenedCellArray, false);
     }
 
-    public void MakeMove(AIBoardData startBoard, AIBoardData endBoard)
+    void MakeMove(AIBoardData startBoard, AIBoardData endBoard)
     {
         if (endBoard.chanceNode)
         {

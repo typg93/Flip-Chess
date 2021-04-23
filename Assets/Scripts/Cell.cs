@@ -81,7 +81,10 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (flipState) pieceGO.transform.position = Input.mousePosition;
+        if (flipState)
+        {
+            pieceGO.transform.position = Input.mousePosition - new Vector3(600, 450);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)

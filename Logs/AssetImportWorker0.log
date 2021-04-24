@@ -1430,3 +1430,148 @@ System memory in use after: 37.2 MB.
 Unloading 2 unused Assets to reduce memory usage. Loaded Objects now: 1817.
 Total: 1.632400 ms (FindLiveObjects: 0.151300 ms CreateObjectMapping: 0.029100 ms MarkObjects: 1.443100 ms  DeleteObjects: 0.008200 ms)
 
+========================================================================
+Received Import Request.
+  Time since last request: 96463.763945 seconds.
+  path: Assets/Art/PieceRed.png
+  artifactKey: Guid(e6bfea3e16497bb4d8759eb80e257e29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/PieceRed.png using Guid(e6bfea3e16497bb4d8759eb80e257e29) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9f0f3660846c9dbf1bb2b6019f601ba6') in 0.303423 seconds
+  Import took 0.324290 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000245 seconds.
+  path: Assets/Art/PieceRed1.png
+  artifactKey: Guid(b68a7b4c738b55141ac4a2403a73dc31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/PieceRed1.png using Guid(b68a7b4c738b55141ac4a2403a73dc31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb99e0073f435acbcffa08ed938a76a1') in 0.020418 seconds
+  Import took 0.024753 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000230 seconds.
+  path: Assets/Art/PieceRed2.png
+  artifactKey: Guid(f455348489ea6204ba152ceda6ee925e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/PieceRed2.png using Guid(f455348489ea6204ba152ceda6ee925e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5f857622dfff6efb929547e99a7903ac') in 0.017953 seconds
+  Import took 0.022469 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000220 seconds.
+  path: Assets/Art/PieceRed1.png
+  artifactKey: Guid(b68a7b4c738b55141ac4a2403a73dc31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/PieceRed1.png using Guid(b68a7b4c738b55141ac4a2403a73dc31) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fb99e0073f435acbcffa08ed938a76a1') in 0.011782 seconds
+  Import took 0.016287 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000193 seconds.
+  path: Assets/Art/PieceRed2.png
+  artifactKey: Guid(f455348489ea6204ba152ceda6ee925e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/PieceRed2.png using Guid(f455348489ea6204ba152ceda6ee925e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5f857622dfff6efb929547e99a7903ac') in 0.011574 seconds
+  Import took 0.015421 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.101609 seconds.
+  path: Assets/Art/Pieces/kisspng-chess-piece-king-clip-art-vector-graphics-chess-piece-king-queen-pawn-chess-white-king-ico-5d13c6d2d0dc45.7705932615615771708555.png
+  artifactKey: Guid(323a9d2a3f040894f97694a47dd131cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/kisspng-chess-piece-king-clip-art-vector-graphics-chess-piece-king-queen-pawn-chess-white-king-ico-5d13c6d2d0dc45.7705932615615771708555.png using Guid(323a9d2a3f040894f97694a47dd131cd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ee4c15c8bf3d6d9c4e76ce019008a2ea') in 0.047430 seconds
+  Import took 0.052385 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000222 seconds.
+  path: Assets/Art/Pieces/piece red 3.png
+  artifactKey: Guid(3d6764b380e1ce542a95668571dea585) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/piece red 3.png using Guid(3d6764b380e1ce542a95668571dea585) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '030cb9822fa1b4cede0042a90d986aac') in 0.035422 seconds
+  Import took 0.038881 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000232 seconds.
+  path: Assets/Art/Pieces/piece base.png
+  artifactKey: Guid(dcfcda6bcd3ddda40b5db46dd4cac930) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/piece base.png using Guid(dcfcda6bcd3ddda40b5db46dd4cac930) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '715ddffb7b2655079f7526ba16ce446a') in 0.032014 seconds
+  Import took 0.035729 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000197 seconds.
+  path: Assets/Art/Pieces/piece blue 5.png
+  artifactKey: Guid(74674fc6bc30b6a45aa25efafddb754f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/piece blue 5.png using Guid(74674fc6bc30b6a45aa25efafddb754f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a66a398dd83a930ce14caa55aa49fa4a') in 0.028824 seconds
+  Import took 0.033383 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000166 seconds.
+  path: Assets/Art/Pieces/piece blue 4.png
+  artifactKey: Guid(0c398bbcdf651944fac6e84e540d9539) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/piece blue 4.png using Guid(0c398bbcdf651944fac6e84e540d9539) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '81329304fe62c61b999e3a01b36c71b2') in 0.027952 seconds
+  Import took 0.031763 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000202 seconds.
+  path: Assets/Art/Pieces/piece red 4.png
+  artifactKey: Guid(a885b13f5d6f9324cb3dce2268e08065) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/piece red 4.png using Guid(a885b13f5d6f9324cb3dce2268e08065) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '8539f589f940143520ef080b8daea5e2') in 0.027848 seconds
+  Import took 0.031494 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000159 seconds.
+  path: Assets/Art/Pieces/piece red 5.png
+  artifactKey: Guid(5ed8915360f98d648a67ce0e91822897) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/piece red 5.png using Guid(5ed8915360f98d648a67ce0e91822897) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ec2f58d328fc0a8b89d88cf871a5a409') in 0.028535 seconds
+  Import took 0.032110 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000187 seconds.
+  path: Assets/Art/Pieces/piece blue 2.png
+  artifactKey: Guid(d1793ffabf41f974098470a414cc067f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/piece blue 2.png using Guid(d1793ffabf41f974098470a414cc067f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '32e9a651e0cd1e1f104d7e9b059cc01c') in 0.028032 seconds
+  Import took 0.031846 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000143 seconds.
+  path: Assets/Art/Pieces/piece red 1.png
+  artifactKey: Guid(5abb383295c9c7049947d28edec1e71a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/piece red 1.png using Guid(5abb383295c9c7049947d28edec1e71a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '190fa0672ac91b3d3597f5bff06a532d') in 0.030232 seconds
+  Import took 0.033931 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000313 seconds.
+  path: Assets/Art/Pieces/piece blue 1.png
+  artifactKey: Guid(2d004404f4c095a47a93aafcf687f086) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/piece blue 1.png using Guid(2d004404f4c095a47a93aafcf687f086) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '1c8552324dc8780b70dd0609055f509b') in 0.030888 seconds
+  Import took 0.034387 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000171 seconds.
+  path: Assets/Art/Pieces/piece blue 3.png
+  artifactKey: Guid(f36e60fdb5631454aa5b84bd92b52c20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/piece blue 3.png using Guid(f36e60fdb5631454aa5b84bd92b52c20) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6c057bc6d12cd1fcc950015b9d81a7a0') in 0.028789 seconds
+  Import took 0.032256 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000165 seconds.
+  path: Assets/Art/Pieces/piece red 2.png
+  artifactKey: Guid(26fa5a411a2cb604da6ee474791955de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/piece red 2.png using Guid(26fa5a411a2cb604da6ee474791955de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '99e08ee16afdfa95d24e4594a3f5ad8c') in 0.029427 seconds
+  Import took 0.032733 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 67.579792 seconds.
+  path: Assets/Art/Pieces/piece blue 2.png
+  artifactKey: Guid(d1793ffabf41f974098470a414cc067f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Art/Pieces/piece blue 2.png using Guid(d1793ffabf41f974098470a414cc067f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '58433c6cb2a9fe218093a50522a44aec') in 0.026913 seconds
+  Import took 0.029789 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

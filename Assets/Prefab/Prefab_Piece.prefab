@@ -88,11 +88,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2654cde849cae0f41aec84a127766d67, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  redOne: {fileID: 21300000, guid: 5abb383295c9c7049947d28edec1e71a, type: 3}
-  redTwo: {fileID: 21300000, guid: 26fa5a411a2cb604da6ee474791955de, type: 3}
-  redThree: {fileID: 21300000, guid: 3d6764b380e1ce542a95668571dea585, type: 3}
-  redFour: {fileID: 21300000, guid: a885b13f5d6f9324cb3dce2268e08065, type: 3}
-  redKing: {fileID: 21300000, guid: 5ed8915360f98d648a67ce0e91822897, type: 3}
+  faceDown: {fileID: 0}
+  redOne: {fileID: 21300000, guid: 7c5ab7ef821e36a4b9b05d94b2d42af3, type: 3}
+  redTwo: {fileID: 21300000, guid: 0dd53d28b8df57b42ba0b242675fb0ef, type: 3}
+  redThree: {fileID: 21300000, guid: 0c4702077878f444fb3a542e1ada292f, type: 3}
+  redFour: {fileID: 21300000, guid: 3c477cf1552481f48a5834149eccf583, type: 3}
+  redKing: {fileID: 21300000, guid: 0204dd9b95c92a74a93ec5dd563a71b1, type: 3}
   blueOne: {fileID: 21300000, guid: 2d004404f4c095a47a93aafcf687f086, type: 3}
   blueTwo: {fileID: 21300000, guid: d1793ffabf41f974098470a414cc067f, type: 3}
   blueThree: {fileID: 21300000, guid: f36e60fdb5631454aa5b84bd92b52c20, type: 3}

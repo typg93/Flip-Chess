@@ -21,6 +21,7 @@ public class GameButtons : Button
     {
         board.ClearBoard();
         board.RandomizeCellValues();
+        GameManager.instance.NewGame();
     }
 
     public void ResetBoardTen()

@@ -73,7 +73,13 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     }
     #endregion
 
+
     #region User Input
+    private bool canMove()
+    {
+        return GameManager.instance.canMove;
+    }
+
     public void OnBeginDrag(PointerEventData eventData)
     {
         pieceCanvas.sortingOrder = 11;
@@ -81,7 +87,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnDrag(PointerEventData eventData)
     {
-        if (flipState)
+        if (flipState && canMove())
         {
             pieceGO.transform.position = Input.mousePosition - new Vector3(600, 450);
         }
@@ -89,7 +95,7 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (!flipState)
+        if (!flipState && canMove())
         {
             FlipMove();
         }
@@ -98,7 +104,8 @@ public class Cell : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHand
     public void OnEndDrag(PointerEventData eventData)
     {
         if (eventData.pointerEnter != null &&
-            eventData.pointerEnter.CompareTag("Cell"))
+            eventData.pointerEnter.CompareTag("Cell") &&
+            canMove()) 
         {
             Cell endDragPiece = eventData.pointerEnter.GetComponent<Cell>();
             MoveTo(endDragPiece);

@@ -10,6 +10,7 @@ public class GameManager : Singleton<GameManager>
     public Player turn = Player.Red;
     public GameObject TextInfo;
     public GameObject computer;
+    public bool canMove = true;
     private AIPlayer ai;
 
     public event EventHandler<OnEndTurnArgs> OnEndTurn;
@@ -31,7 +32,6 @@ public class GameManager : Singleton<GameManager>
             TextInfo.GetComponent<TextMeshProUGUI>().text = "Blue Turn";
             turn = Player.Blue;
             StartCoroutine(ai.FinishMove());
-            //ai.FinishMove();
         }
 
         else if (turn == Player.Blue)
@@ -49,7 +49,15 @@ public class GameManager : Singleton<GameManager>
     public void WinGame(Player player)
     {
         //win game
+        canMove = false;
         Debug.Log(player + "wins");
+    }
+
+    public void NewGame()
+        //resets game
+    {
+        canMove = true;
+        turn = Player.Red;
     }
 }
 

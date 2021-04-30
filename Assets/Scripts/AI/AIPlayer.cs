@@ -17,24 +17,16 @@ public class AIPlayer : MonoBehaviour
         ai = new AISearch();
     }
 
-    private void Start()
-    {
-
-    }
-
-    public void TestBestMove()
-    {
-        AISearch ai = new AISearch();
-        AIBoardData testBoard = ScanBoard();
-        DisplayBoardArray.instance.DisplayBoardValues(ai.BestMove(testBoard, 4, 1));
-    }
     public IEnumerator FinishMove()
     {
-        AISearch ai = new AISearch();
-        AIBoardData testBoard = ScanBoard();
-        yield return new WaitForSeconds(1);
-        AIBoardData bestBoard = ai.BestMove(testBoard, 4, 1);
-        MakeMove(testBoard, bestBoard);
+        if (canMove())
+        {
+            AISearch ai = new AISearch();
+            AIBoardData testBoard = ScanBoard();
+            yield return new WaitForSeconds(1);
+            AIBoardData bestBoard = ai.BestMove(testBoard, 4, 1);
+            MakeMove(testBoard, bestBoard);
+        }
     }
 
     AIBoardData ScanBoard()
@@ -73,6 +65,11 @@ public class AIPlayer : MonoBehaviour
             board.cells[moveFromX, moveFromY].MoveTo(board.cells[moveToX, moveToY]);
             Debug.Log(moveFromX + " " + moveFromY + " to: " + moveToX + " " + moveToY);
         }
+    }
+
+    private bool canMove()
+    {
+        return GameManager.instance.canMove;
     }
 
 }
